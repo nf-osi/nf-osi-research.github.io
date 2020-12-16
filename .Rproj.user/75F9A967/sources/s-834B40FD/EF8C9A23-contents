@@ -1,0 +1,293 @@
+---
+title: "DRUID analysis of JHU Biobank data"
+author:
+- affiliation: Sage Bionetworks
+  affiliation_url: https://sagebionetworks.org/
+  name: Jineta Banerjee
+  url: null
+date: "`r Sys.Date()`"
+output: distill::distill_article
+description: |
+  DRUID analysis of JHU Biobank data
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+ 
+```{r lib_synapser, echo=FALSE, eval=TRUE, results='hide', message=FALSE, warning=FALSE}
+
+library(synapser)
+library(BiocManager)
+library(gProfileR)
+library(GOsummaries)
+library(tidyverse)
+library(ggfortify)
+library(GSVA)
+library(GSVAdata)
+library(biomartr)
+library(pheatmap)
+library(biomaRt)
+library(glue)
+library(edgeR)
+library(limma)
+library(sagethemes)
+import_lato()
+library(DRUID)
+library(cauldron)
+library(AnnotationDbi)
+library(org.Hs.eg.db)
+library(DT)
+
+library(synapser)
+synapser::synLogin()
+```
+
+## Publicly available data from JHU Biobank
+
+We used the publicly available JHU Biobank RNASeq data stored in project : syn20812185 for this analysis.
+
+```{r download data, eval=TRUE, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+
+NTAP_published_files <- synapser::synTableQuery(glue::glue("SELECT * FROM syn21221980"))$asDataFrame()
+
+NTAP_pub_rnaseq_data <- synapser::synTableQuery(glue::glue("SELECT * FROM syn20812185"))$asDataFrame() %>% 
+  dplyr::select(totalCounts, Symbol, zScore, specimenID, individualID, sex, tumorType, studyName)
+
+NTAP_pub_rnaseq_data$sex[NTAP_pub_rnaseq_data$sex == "female"] <- "Female"
+NTAP_pub_rnaseq_data$sex[NTAP_pub_rnaseq_data$sex == "male"] <- "Male"
+NTAP_pub_rnaseq_data$tumorType[NTAP_pub_rnaseq_data$tumorType == "Malignant peripheral nerve sheath tumor"] <- "Malignant Peripheral Nerve Sheath Tumor"
+
+NTAP_pub_rnaseq_data <- NTAP_pub_rnaseq_data %>% 
+  filter(tumorType %in% c("Cutaneous Neurofibroma", "Plexiform Neurofibroma", "Neurofibroma", "Malignant Peripheral Nerve Sheath Tumor"),
+         !grepl('xenograft', specimenID, ignore.case = T),
+         !grepl('Cell Line', specimenID, ignore.case = T),
+         !specimenID %in% c("BI386-004","CW225-001","DW356-002",
+                            "JK368-003", "SK436-005"))
+
+
+```
+
+
+We then used TMM normalization to prepare the dataset for differential gene expression analysis.
+
+```{r TMM-LCPM normalization, eval=TRUE, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+
+gene_mat<-reshape2::acast(unique(NTAP_pub_rnaseq_data),
+                          Symbol~specimenID,
+                          value.var='totalCounts',
+                          fun.aggregate = mean)
+
+# missing<-which(apply(gene_mat,1,function(x) any(is.na(x))))
+# gene_mat<-gene_mat[-missing,]
+
+DGE.all <-DGEList(counts=gene_mat) # function from edgeR
+
+```
+
+&nbsp;
+
+## Differential gene expression analysis in samples:
+
+We used limma-edgeR based analysis to find differentially expressed genes in the TMM normalized dataset. 
+
+A point to note:
+
+*  All MPNST samples except one are males while all PNF samples except one are femmales. So there may be a sex related effect on the analysis that we dont have a good way to mitigate. 
+* The number of MPNST samples are extremely limited (n=4), so these results should be evaluated with more samples when possible
+
+The plot below shows genes that are significantly overexpressed in MPNST compared to PNF (logFC > 4) in red. The dots in blue refer to genes that are significantly underexpressed in MPNST compared to PNF (logFC < -4). The thresholds of fold change have been arbitrarily chosen for ease of visualization in the volcano plot shown below.
+
+```{r DEG, echo=F, eval= TRUE, results='hide', message=FALSE, warning=FALSE, fig.height=20, fig.width=20, fig.cap="Differential expression of genes in MPNST and pNF tumor types. Above shows a volcano plot highlighting significantly upregulated genes in red and downregulated genes in blue"}
+
+#Select annotations
+annotes=NTAP_pub_rnaseq_data %>%
+  dplyr::select(specimenID,sex,tumorType,studyName) %>%
+  unique()
+annotes$tumorType <- as.factor(annotes$tumorType)
+annotes$sex <-as.factor(annotes$sex)
+rownames(annotes)<-annotes$specimenID
+
+## DEG analysis using limma, Glimma and EdgeR
+
+limma_object <- DGE.all  # make new DGElist object so that we dont change the original object
+
+#make design matrix
+annotes <- annotes %>% 
+  dplyr::filter(specimenID %in% colnames(gene_mat)) 
+ordered_annotes <- annotes[match(colnames(gene_mat), annotes$specimenID),]
+group_object <- ordered_annotes$tumorType
+batch <- ordered_annotes$studyName
+sex <- ordered_annotes$sex
+
+design_new <- model.matrix(~0+group_object)
+colnames(design_new) <- gsub("group_object", "", colnames(design_new)) # modify the colnames to remove "group_object" addition
+colnames(design_new) <- gsub(" ", "_", colnames(design_new))
+colnames(design_new) <- gsub("-", "_", colnames(design_new))
+
+
+contr.matrix <- makeContrasts(
+   MPNSTvsPNF = Malignant_Peripheral_Nerve_Sheath_Tumor - Plexiform_Neurofibroma,
+   levels = colnames(design_new))
+#contr.matrix
+
+## Using voom to make Elist object
+#print("Visualizing the mean variance trend of the RNASeq dataset")
+voom_object <- voomWithQualityWeights(limma_object, design_new, plot=FALSE) # removing heteroscadisticity
+#voom_object$genes <- genes_unique
+
+## Run DGE analysis using lmFit
+
+fit_new <- lmFit(voom_object, design_new)
+contrast_fit_new <- contrasts.fit(fit_new, contrasts=contr.matrix)
+fit <- eBayes(contrast_fit_new, trend=TRUE)
+
+results_fit_new <- decideTests(fit)
+#summary(results_fit_new)
+
+#vennDiagram(results_fit_new[,c(1)], circle.col=c("turquoise", "salmon"))
+MPNSTvsPNF <- topTreat(fit, coef=1, n=Inf)
+MPNSTvsPNF$Genes <- rownames(MPNSTvsPNF)
+MPNSTvsPNF_ordered <- MPNSTvsPNF[order(MPNSTvsPNF$adj.P.Val),]
+
+## Volcano Plots:
+
+MPNSTvsPNF_ordered <-MPNSTvsPNF_ordered %>%
+  mutate(threshold = ifelse(logFC >= 4 & adj.P.Val <= 0.05,"A", 
+                            ifelse(logFC<=-4 & adj.P.Val <= 0.05, 
+                                   "B", "C")))
+
+
+ggplot(data=MPNSTvsPNF_ordered, aes(x=logFC, y=-log10(adj.P.Val))) +
+  geom_point(aes(colour = threshold), alpha=0.4, size=5) +
+  xlim(c(-10, 10)) + ylim(c(0, 2)) +
+  xlab("log2 fold change") + ylab("-log10 adjusted Pvalue") +
+  scale_colour_manual(values = c("A"= "red", "B"="blue",  "C"= "black")) +
+  geom_text(aes(label = ifelse(threshold != "C", 
+                               as.character(Genes), ""), 
+                colour = as.factor(threshold)), size = 5, angle = 45, hjust = -0.25) +
+  theme_bw()+
+  theme(legend.text = element_text(size=10), #element_text(size=8),
+              axis.text.x  = element_text(size=30, angle = 45),
+              axis.text.y = element_text(size=30),
+              text = element_text(size=40),
+              strip.text.x = element_text(size = 30),
+              legend.position="none",
+              panel.grid = element_blank(),
+              panel.background = element_rect(fill = "white")) 
+
+```
+
+## Predicting drug candidates based on significant DEGs using DRUID:
+
+We then took the subset of genes that were significantly differentially expressed between MPNST and pNF tumor types and used DRUID to enrich candidate drugs to revert the MPNST phenotype to pNF phenotype. We did this using the following steps:
+
+```{r DRUID, echo=T, eval= TRUE, results='hide', message=FALSE, warning=FALSE, fig.height=15, fig.width=20, fig.cap="DRUID predictions for significant DEGs", layout="l-screen-inset shaded"}
+
+
+# Select the significantly differentially expressed genes from DEG analysis
+druid_dge <- MPNSTvsPNF %>% 
+  dplyr::select(c("logFC","adj.P.Val")) %>% 
+  dplyr::filter(MPNSTvsPNF$adj.P.Val < 0.05)
+  
+# Make query matrix for DRUID
+query_matrix <- as.matrix(druid_dge)
+
+# Convert the gene names to entrez ids
+geneSymbols <- AnnotationDbi::mapIds(org.Hs.eg.db, 
+                                     keys=rownames(query_matrix), 
+                                     column=c("ENTREZID"), 
+                                     keytype="SYMBOL", 
+                                     multiVals = "first") %>% as.data.frame()
+#head(geneSymbols)
+entrez_ids <- geneSymbols$.
+
+# # Run Druid with only significant genes (adj_p_val < 0.05) and save output
+# sig_genes_druid <- concoct(dge_matrix = query_matrix, 
+#                            num_random = 10000, 
+#                            druid_direction = "neg", 
+#                            fold_thr = 0.5, 
+#                            pvalue_thr = 0.05, 
+#                            entrez = entrez_ids)
+# sig_genes_druid_ordered <- sig_genes_druid[order(sig_genes_druid$druid_score, decreasing = TRUE),]
+# #head(sig_genes_druid_ordered)
+# 
+# save(sig_genes_druid_ordered, file = "./sig_genes_druid_mpnst_pnf.RData")
+
+load("./sig_genes_druid_mpnst_pnf.RData")
+
+
+sig_genes_druid_ordered %>% 
+  dplyr::filter(., druid_score > 5) %>% 
+  ggplot() + 
+  geom_point(aes(x = drug_name, y = cosine_similarity, color = cell_line), alpha = 0.5) + 
+  facet_grid(. ~ cell_line, scales = "free") + 
+  theme_bw() + 
+  theme(axis.text.x = element_text(angle = 45))
+
+```
+
+The table below lists all the drugs that were recommended as promising candidates using the DRUID analysis. A higher DRUID score (scale from 0-6) would mean a higher recommendation for the drug compound.
+
+```{r DRUID_table, echo=F, eval= TRUE, results='show', message=FALSE, warning=FALSE, layout="l-body-outset"}
+#library(rmarkdown)
+#paged_table(mtcars, options = list(rows.print = 15))
+
+DT::datatable(sig_genes_druid_ordered[1:50,c("drug_name", "matched_genes", "druid_score", "probability_random","cell_line")])
+
+```
+
+
+
+```{r DRUID allgenes, echo=F, eval=F, results='hide', message=FALSE, warning=FALSE, fig.height=20, fig.width=20}
+
+druid_dge_all <- MPNSTvsPNF %>% 
+  dplyr::select(c("logFC","adj.P.Val")) 
+  
+query_matrix <- as.matrix(druid_dge_all)
+
+
+# Convert the gene names to entrez ids
+geneSymbols <- AnnotationDbi::mapIds(org.Hs.eg.db, 
+                                     keys=rownames(query_matrix), 
+                                     column=c("ENTREZID"), 
+                                     keytype="SYMBOL", 
+                                     multiVals = "first") %>% as.data.frame()
+head(geneSymbols)
+entrez_ids <- geneSymbols$.
+
+# #Run Druid with all genes 
+# all_genes_druid <- concoct(dge_matrix = query_matrix, 
+#                            num_random = 10000, 
+#                            druid_direction = "neg", 
+#                            fold_thr = 0.5, 
+#                            pvalue_thr = 0.05, 
+#                            entrez = entrez_ids)
+# all_genes_druid_ordered <- all_genes_druid[order(all_genes_druid$druid_score, decreasing = TRUE),]
+# #head(sig_genes_druid_ordered)
+# 
+# save(all_genes_druid_ordered, file = "/Users/jineta/git/gitrepo/GSVA/all_genes_druid_mpnst_pnf.RData")
+
+load("/Users/jineta/git/gitrepo/GSVA/all_genes_druid_mpnst_pnf.RData")
+
+DT::datatable(all_genes_druid_ordered[1:50,c("drug_name", "matched_genes", "druid_score", "probability_random","cell_line")])
+
+all_genes_druid_ordered %>% 
+  dplyr::filter(., druid_score > 5) %>% 
+  ggplot() + 
+  geom_point(aes(x = drug_name, y = cosine_similarity, color = cell_line), alpha = 0.5) + 
+  facet_grid(. ~ cell_line, scales = "free") + 
+  theme_bw() + 
+  theme(axis.text.x = element_text(angle = 45))
+
+```
+
+
+Distill is a publication format for scientific and technical writing, native to the web. 
+
+Learn more about using Distill for R Markdown at <https://rstudio.github.io/distill>.
+
+
+
+
+

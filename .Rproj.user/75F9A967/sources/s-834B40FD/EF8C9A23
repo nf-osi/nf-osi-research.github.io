@@ -1,0 +1,27 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1608058752473.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "17|88|43|0|\n73|98|85|0|\n100|290|178|0|\n184|189|227|0|\n241|112|282|0|\n",
+    "hash" : "3911338261",
+    "id" : "EF8C9A23",
+    "lastKnownWriteTime" : 1608082157,
+    "last_content_update" : 1608082157812,
+    "path" : "~/git/gitrepo/sage_nf-osi_research/DRUID.Rmd",
+    "project_path" : "DRUID.Rmd",
+    "properties" : {
+        "cursorPosition" : "9,14",
+        "last_setup_crc32" : "834B40FDbb338d19",
+        "scrollLine" : "1",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

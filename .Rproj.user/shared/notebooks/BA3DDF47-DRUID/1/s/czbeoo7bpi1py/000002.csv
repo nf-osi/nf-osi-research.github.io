@@ -1,0 +1,10 @@
+"0","NTAP_published_files <- synapser::synTableQuery(glue::glue(""SELECT * FROM syn21221980""))$asDataFrame()
+"
+"1",""
+"0",""
+"0","NTAP_pub_rnaseq_data <- synapser::synTableQuery(glue::glue(""SELECT * FROM syn20812185""))$asDataFrame() %>% "
+"0","  dplyr::select(totalCounts, Symbol, zScore, specimenID, individualID, sex, tumorType, studyName)"
+"1",""
+"0","NTAP_pub_rnaseq_data$sex[NTAP_pub_rnaseq_data$sex == ""female""] <- ""Female"""
+"0","NTAP_pub_rnaseq_data$sex[NTAP_pub_rnaseq_data$sex == ""male""] <- ""Male"""
+"0","NTAP_pub_rnaseq_data$tumorType[NTAP_pub_rnaseq_data$tumorType == ""Malignant peripheral nerve sheath tumor""] <- ""Malignant Peripheral Nerve Sheath Tumor"""
