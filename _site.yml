@@ -3,7 +3,7 @@ title: "Sage Bionetworks NF-OSI Research"
 #google_analytics: "UA-77306155-2"
 description: |
   This website hosts various analyses done on NF related data available on the [NF Data Portal](www.nfdataportal.org)
-output_dir: "."
+output_dir: "docs"
 navbar:
   right:
     - text: "Home"
@@ -24,4 +24,3 @@ output:
     - fig_width: 20
     - fig_height: 20
     - fig_caption: true
-
