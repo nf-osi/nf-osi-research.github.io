@@ -14,15 +14,13 @@ navbar:
       menu:
         - text: "DRUID"
           href: DRUID.html
-    - text: "Community Briefs"
-      menu:
-        - text: "Data sharing specifications"
-          href: rfc-brief.html
     - search: TRUE
     - source_url: https://github.com/nf-osi/Research
     - icon: fab fa-github
       href: https://github.com/nf-osi/Research
 output:
   distill::distill_article:
-    toc: true
-    fig_caption: true
+    - toc: true
+    - fig_width: 20
+    - fig_height: 20
+    - fig_caption: true
