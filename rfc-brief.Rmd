@@ -41,7 +41,7 @@ This document describes data types and formats that should be shared by the Neur
 The NF Data Portal is a collaborative data-sharing platform for Neurofibromatosis, a rare genetic disease. 
 It has been jointly supported by multiple funding organizations -- the Gilbert Family Foundation (GFF), Children's Tumor Foundation (CTF), Neurofibromatosis Therapeutic Acceleration Program (NTAP), NCI Developmental and Hyperactive Ras Tumor SPORE (DHART SPORE), CDMRP Neurofibromatosis Research Program (CDMRP NFRP), and Neurofibromatosis Research Initiative (NFRI) -- and therefore represents substantial NF research activity.
 
-As the NF community may continue to expand to add new affiliated or independent researchers, and therefore new data, having these standards will help maintain the quality and quantity of our valuable resources. 
+As the NF Data Portal community continues to expand to add newly affiliated as well as independent researchers, and therefore new data, having these standards will help maintain the quality and quantity of our valuable resources. 
 But also important is that this document should actually benefit our data contributors.
 <!-- to answer the question of "Why should I glance at this?" -->
 One advantage is allowing our contributors to prioritize submissions accordingly.
