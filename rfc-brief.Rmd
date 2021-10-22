@@ -2,7 +2,7 @@
 title: "Data sharing specifications for the NF community"
 author:
 - name: Robert Allaway
-  url: https://example.com/
+   url: https://github.com/allaway
   affiliation: Sage BioNetworks
   affiliation_url: https://sagebionetworks.org/
   orcid_id: 0000-0003-3573-3565
