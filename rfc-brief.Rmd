@@ -125,7 +125,7 @@ Clinical data can be extremely diverse and unstructured.
 While we have incorporated comments for structured clinical data, we have not received comments for unstructured clinical data such as patient histories that are often captured in text reports. 
 Clinical data still remains very open to comment from those in the community.
 
-### Alternative assay/system data
+### Alternative assay/platform data
 
 The specifications table includes the most common assay data types instead of enumerating all variants or alternatives. 
 An insightful community observation suggested there can be less common but better alternatives for some assays.
