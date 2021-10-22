@@ -34,7 +34,7 @@ survey <- read.csv("materials/rfc/rfc_responses.csv")
 
 ## Abstract
 
-This document describes data types and formats that should be shared by the Neurofibromatosis (NF) research community for the NF Data Portal. 
+The NF Data Portal community is dedicated towards bringing the latest data and research from the NF research community to the world. In doing so the Portal maintains and implements FAIR standards to make various types of research data findable, accessible, interoperable and reusable. Recently the Portal community reached out to the research community asking feedback regarding sharing logistics of various data types and their file formats. This document describes data types and formats that should be shared by the Neurofibromatosis (NF) research community for the NF Data Portal. 
 
 ## Introduction
 
