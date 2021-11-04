@@ -46,7 +46,7 @@ But also important is that this document should actually benefit our data contri
 <!-- to answer the question of "Why should I glance at this?" -->
 One advantage is allowing our contributors to prioritize submissions accordingly.
 The burden of having to submit data in multiple formats can also be avoided, since preferred formats are clear. 
-These specifications should lead to higher-impact data, leaning towards the most interoperabe formats that make data more likely to be reused (and cited). 
+These specifications should lead to higher-impact data, encouraging sharing of interoperable formats that make data more likely to be reused (and cited). 
 Finally, this open document lets our community be apprised of the status quo, including specifications currently *not* included, so that they can continue to provide comments.
 
 These current data-sharing specifications have been informed by several sources. 
