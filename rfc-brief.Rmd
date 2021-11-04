@@ -7,7 +7,7 @@ author:
   affiliation_url: https://sagebionetworks.org/
   orcid_id: 0000-0003-3573-3565
 - name: Jineta Banerjee
-  url: https://example.com/
+  url: https://github.com/jaybee84
   affiliation: Sage BioNetworks
   affiliation_url: https://sagebionetworks.org/
   orcid_id: 0000-0002-1775-3645
