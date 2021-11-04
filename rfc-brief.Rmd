@@ -50,7 +50,7 @@ These specifications should lead to higher-impact data, encouraging sharing of i
 Finally, this open document lets our community be apprised of the status quo, including specifications currently *not* included, so that they can continue to provide comments.
 
 These current data-sharing specifications have been informed by several sources. 
-First are requirements already established by our funding organizations, which are largely non-negotiable. 
+First are requirements already established by the NF-OSI funding organizations, which typically apply to types of data which have clear "reusability" value and for which there are well defined strategies for sharing (e.g. sequencing data).
 Second is the feedback received from the community, which was especially influential for data types outside of what is required by default, i.e. more "optional" data types. 
 This feedback was solicited from the research community through an open RFC, from which results are incorporated here. 
 Lastly, journal requirements and other repositories also had some influence on these specifications.
