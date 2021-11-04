@@ -8,7 +8,7 @@ author:
   orcid_id: 0000-0003-3573-3565
 - name: Jineta Banerjee
   url: https://github.com/jaybee84
-  affiliation: Sage BioNetworks
+  affiliation: Sage Bionetworks
   affiliation_url: https://sagebionetworks.org/
   orcid_id: 0000-0002-1775-3645
 - name: Anh Nguyet Vu
