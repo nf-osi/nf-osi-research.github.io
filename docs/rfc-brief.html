@@ -56,7 +56,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { color: #20794d; } /* Attribute */
+code span.at { } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
 code span.cf { color: #007ba5; } /* ControlFlow */
@@ -77,13 +77,14 @@ code span.kw { color: #007ba5; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
 code span.ot { color: #007ba5; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #20794d; } /* SpecialChar */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
 code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
+
 
   <!--radix_placeholder_meta_tags-->
   <title>Sage Bionetworks NF-OSI Research: Data sharing specifications for the NF community</title>
@@ -92,8 +93,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2021-10-11"/>
-  <meta property="article:created" itemprop="dateCreated" content="2021-10-11"/>
+  <meta property="article:published" itemprop="datePublished" content="2021-11-04"/>
+  <meta property="article:created" itemprop="dateCreated" content="2021-11-04"/>
   <meta name="article:author" content="Robert Allaway"/>
   <meta name="article:author" content="Jineta Banerjee"/>
   <meta name="article:author" content="Anh Nguyet Vu"/>
@@ -114,7 +115,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","author","date","description","draft"]}},"value":[{"type":"character","attributes":{},"value":["Data sharing specifications for the NF community"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url","orcid_id"]}},"value":[{"type":"character","attributes":{},"value":["Robert Allaway"]},{"type":"character","attributes":{},"value":["https://example.com/"]},{"type":"character","attributes":{},"value":["Sage BioNetworks"]},{"type":"character","attributes":{},"value":["https://sagebionetworks.org/"]},{"type":"character","attributes":{},"value":["0000-0003-3573-3565"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url","orcid_id"]}},"value":[{"type":"character","attributes":{},"value":["Jineta Banerjee"]},{"type":"character","attributes":{},"value":["https://example.com/"]},{"type":"character","attributes":{},"value":["Sage BioNetworks"]},{"type":"character","attributes":{},"value":["https://sagebionetworks.org/"]},{"type":"character","attributes":{},"value":["0000-0002-1775-3645"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url","orcid_id"]}},"value":[{"type":"character","attributes":{},"value":["Anh Nguyet Vu"]},{"type":"character","attributes":{},"value":["https://github.com/anngvu"]},{"type":"character","attributes":{},"value":["Sage BioNetworks"]},{"type":"character","attributes":{},"value":["https://sagebionetworks.org/"]},{"type":"character","attributes":{},"value":["0000-0003-1488-6730"]}]}]},{"type":"character","attributes":{},"value":["2021-10-11"]},{"type":"character","attributes":{},"value":["Status: **Draft**\n"]},{"type":"logical","attributes":{},"value":[true]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","author","date","description","draft"]}},"value":[{"type":"character","attributes":{},"value":["Data sharing specifications for the NF community"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url","orcid_id"]}},"value":[{"type":"character","attributes":{},"value":["Robert Allaway"]},{"type":"character","attributes":{},"value":["https://github.com/allaway"]},{"type":"character","attributes":{},"value":["Sage Bionetworks"]},{"type":"character","attributes":{},"value":["https://sagebionetworks.org/"]},{"type":"character","attributes":{},"value":["0000-0003-3573-3565"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url","orcid_id"]}},"value":[{"type":"character","attributes":{},"value":["Jineta Banerjee"]},{"type":"character","attributes":{},"value":["https://github.com/jaybee84"]},{"type":"character","attributes":{},"value":["Sage Bionetworks"]},{"type":"character","attributes":{},"value":["https://sagebionetworks.org/"]},{"type":"character","attributes":{},"value":["0000-0002-1775-3645"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url","orcid_id"]}},"value":[{"type":"character","attributes":{},"value":["Anh Nguyet Vu"]},{"type":"character","attributes":{},"value":["https://github.com/anngvu"]},{"type":"character","attributes":{},"value":["Sage Bionetworks"]},{"type":"character","attributes":{},"value":["https://sagebionetworks.org/"]},{"type":"character","attributes":{},"value":["0000-0003-1488-6730"]}]}]},{"type":"character","attributes":{},"value":["2021-11-04"]},{"type":"character","attributes":{},"value":["Status: **Draft**\n"]},{"type":"logical","attributes":{},"value":[true]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -461,7 +462,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   </style>
 
-  <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <script src="site_libs/jquery-3.5.1/jquery-3.5.1.min.js"></script>
   <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
   <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
   <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -1868,7 +1869,10 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
-        var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          return "<p>" + $('#ref-' + ref).html() + "</p>";
+        }).join("\n");
         window.tippy(this, {
           allowHTML: true,
           content: refHtml,
@@ -2059,7 +2063,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Data sharing specifications for the NF community","description":"Status: **Draft**","authors":[{"author":"Robert Allaway","authorURL":"https://example.com/","affiliation":"Sage BioNetworks","affiliationURL":"https://sagebionetworks.org/","orcidID":"0000-0003-3573-3565"},{"author":"Jineta Banerjee","authorURL":"https://example.com/","affiliation":"Sage BioNetworks","affiliationURL":"https://sagebionetworks.org/","orcidID":"0000-0002-1775-3645"},{"author":"Anh Nguyet Vu","authorURL":"https://github.com/anngvu","affiliation":"Sage BioNetworks","affiliationURL":"https://sagebionetworks.org/","orcidID":"0000-0003-1488-6730"}],"publishedDate":"2021-10-11T00:00:00.000-07:00","citationText":"Allaway, et al., 2021"}
+{"title":"Data sharing specifications for the NF community","description":"Status: **Draft**","authors":[{"author":"Robert Allaway","authorURL":"https://github.com/allaway","affiliation":"Sage Bionetworks","affiliationURL":"https://sagebionetworks.org/","orcidID":"0000-0003-3573-3565"},{"author":"Jineta Banerjee","authorURL":"https://github.com/jaybee84","affiliation":"Sage Bionetworks","affiliationURL":"https://sagebionetworks.org/","orcidID":"0000-0002-1775-3645"},{"author":"Anh Nguyet Vu","authorURL":"https://github.com/anngvu","affiliation":"Sage Bionetworks","affiliationURL":"https://sagebionetworks.org/","orcidID":"0000-0003-1488-6730"}],"publishedDate":"2021-11-04T00:00:00.000-07:00","citationText":"Allaway, et al., 2021"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2113,13 +2117,13 @@ Community Briefs
 </div>
 
 <div class="d-byline">
-  Robert Allaway <a href="https://example.com/" class="uri">https://example.com/</a> (Sage BioNetworks)<a href="https://sagebionetworks.org/" class="uri">https://sagebionetworks.org/</a>
+  Robert Allaway <a href="https://github.com/allaway" class="uri">https://github.com/allaway</a> (Sage Bionetworks)<a href="https://sagebionetworks.org/" class="uri">https://sagebionetworks.org/</a>
   
-,   Jineta Banerjee <a href="https://example.com/" class="uri">https://example.com/</a> (Sage BioNetworks)<a href="https://sagebionetworks.org/" class="uri">https://sagebionetworks.org/</a>
+,   Jineta Banerjee <a href="https://github.com/jaybee84" class="uri">https://github.com/jaybee84</a> (Sage Bionetworks)<a href="https://sagebionetworks.org/" class="uri">https://sagebionetworks.org/</a>
   
-,   Anh Nguyet Vu <a href="https://github.com/anngvu" class="uri">https://github.com/anngvu</a> (Sage BioNetworks)<a href="https://sagebionetworks.org/" class="uri">https://sagebionetworks.org/</a>
+,   Anh Nguyet Vu <a href="https://github.com/anngvu" class="uri">https://github.com/anngvu</a> (Sage Bionetworks)<a href="https://sagebionetworks.org/" class="uri">https://sagebionetworks.org/</a>
   
-<br/>2021-10-11
+<br/>2021-11-04
 </div>
 
 <div class="d-article">
@@ -2134,27 +2138,27 @@ Community Briefs
 <ul>
 <li><a href="#imaging-data">Imaging data</a></li>
 <li><a href="#clinical-data">Clinical data</a></li>
-<li><a href="#alternative-assaysystem-data">Alternative assay/system data</a></li>
+<li><a href="#alternative-assayplatform-data">Alternative assay/platform data</a></li>
 </ul></li>
 <li><a href="#quantified-results-from-request-for-comments-rfc">Quantified results from Request for Comments (RFC)</a></li>
 </ul>
 </nav>
 </div>
 <h2 id="abstract">Abstract</h2>
-<p>This document describes data types and formats that should be shared by the Neurofibromatosis (NF) research community for the NF Data Portal.</p>
+<p>The NF Data Portal community is dedicated towards bringing the latest data and research from the NF research community to the world. In doing so the Portal maintains and implements FAIR standards to make various types of research data findable, accessible, interoperable and reusable. Recently the Portal community reached out to the research community asking feedback regarding sharing logistics of various data types and their file formats. This document describes data types and formats that should be shared by the Neurofibromatosis (NF) research community for the NF Data Portal.</p>
 <h2 id="introduction">Introduction</h2>
 <p>The NF Data Portal is a collaborative data-sharing platform for Neurofibromatosis, a rare genetic disease. It has been jointly supported by multiple funding organizations – the Gilbert Family Foundation (GFF), Children’s Tumor Foundation (CTF), Neurofibromatosis Therapeutic Acceleration Program (NTAP), NCI Developmental and Hyperactive Ras Tumor SPORE (DHART SPORE), CDMRP Neurofibromatosis Research Program (CDMRP NFRP), and Neurofibromatosis Research Initiative (NFRI) – and therefore represents substantial NF research activity.</p>
-<p>As the NF community may continue to expand to add new affiliated or independent researchers, and therefore new data, having these standards will help maintain the quality and quantity of our valuable resources. But also important is that this document should actually benefit our data contributors. <!-- to answer the question of "Why should I glance at this?" --> One advantage is allowing our contributors to prioritize submissions accordingly. The burden of having to submit data in multiple formats can also be avoided, since preferred formats are clear. These specifications should lead to higher-impact data, leaning towards the most interoperabe formats that make data more likely to be reused (and cited). Finally, this open document lets our community be apprised of the status quo, including specifications currently <em>not</em> included, so that they can continue to provide comments.</p>
-<p>These current data-sharing specifications have been informed by several sources. First are requirements already established by our funding organizations, which are largely non-negotiable. Second is the feedback received from the community, which was especially influential for data types outside of what is required by default, i.e. more “optional” data types. This feedback was solicited from the research community through an open RFC, from which results are incorporated here. Lastly, journal requirements and other repositories also had some influence on these specifications.</p>
+<p>As the NF Data Portal community continues to expand to add newly affiliated as well as independent researchers, and therefore new data, having these standards will help maintain the quality and quantity of our valuable resources. But also important is that this document should actually benefit our data contributors. <!-- to answer the question of "Why should I glance at this?" --> One advantage is allowing our contributors to prioritize submissions accordingly. - making it clear what data formats are preferred for sharing. These specifications should lead to higher-impact data, encouraging sharing of interoperable formats that make data more likely to be reused (and cited). Finally, this open document lets our community be informed of the current state of art, including specifications currently <em>not</em> included, so that they can provide input towards specific/new data formats.</p>
+<p>The data-sharing specifications highlighted in this document have been informed by several members in the research community, using their opinions solicited through an open RFC. First are requirements already established by the NF-OSI funding organizations, which typically apply to types of data which have clear “reusability” value and for which there are well defined strategies for sharing (e.g. sequencing data). Second is the feedback received from the community, which was especially influential for data types outside of what is required by default, i.e. more “optional” data types. This feedback was solicited from the research community through an open RFC, from which results are incorporated here. Lastly, journal requirements and other repositories also had some influence on these specifications.</p>
 <h2 id="data-types-and-formats-summary">Data types and formats summary</h2>
 <p>Table <a href="#tab:table-main">1</a> summarizes specifications for common data types that are of interest for the NF community. These standards should apply for most general cases. However, we do note that for some data types, the community comments provided additional considerations that serve to qualify or supplement what is in this table. Community results are also summarized in Quantified Results section.</p>
 <div class="layout-chunk" data-layout="l-page">
-<div id="csefjnuiza" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="mdmkotbtnp" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#csefjnuiza .gt_table {
+#mdmkotbtnp .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -2179,7 +2183,7 @@ Community Briefs
   border-left-color: #D3D3D3;
 }
 
-#csefjnuiza .gt_heading {
+#mdmkotbtnp .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2191,7 +2195,7 @@ Community Briefs
   border-right-color: #D3D3D3;
 }
 
-#csefjnuiza .gt_title {
+#mdmkotbtnp .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2201,7 +2205,7 @@ Community Briefs
   border-bottom-width: 0;
 }
 
-#csefjnuiza .gt_subtitle {
+#mdmkotbtnp .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2211,13 +2215,13 @@ Community Briefs
   border-top-width: 0;
 }
 
-#csefjnuiza .gt_bottom_border {
+#mdmkotbtnp .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#csefjnuiza .gt_col_headings {
+#mdmkotbtnp .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2232,7 +2236,7 @@ Community Briefs
   border-right-color: #D3D3D3;
 }
 
-#csefjnuiza .gt_col_heading {
+#mdmkotbtnp .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2252,7 +2256,7 @@ Community Briefs
   overflow-x: hidden;
 }
 
-#csefjnuiza .gt_column_spanner_outer {
+#mdmkotbtnp .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2264,15 +2268,15 @@ Community Briefs
   padding-right: 4px;
 }
 
-#csefjnuiza .gt_column_spanner_outer:first-child {
+#mdmkotbtnp .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#csefjnuiza .gt_column_spanner_outer:last-child {
+#mdmkotbtnp .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#csefjnuiza .gt_column_spanner {
+#mdmkotbtnp .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2284,7 +2288,7 @@ Community Briefs
   width: 100%;
 }
 
-#csefjnuiza .gt_group_heading {
+#mdmkotbtnp .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFEFDB;
@@ -2306,7 +2310,7 @@ Community Briefs
   vertical-align: middle;
 }
 
-#csefjnuiza .gt_empty_group_heading {
+#mdmkotbtnp .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFEFDB;
@@ -2321,15 +2325,15 @@ Community Briefs
   vertical-align: middle;
 }
 
-#csefjnuiza .gt_from_md > :first-child {
+#mdmkotbtnp .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#csefjnuiza .gt_from_md > :last-child {
+#mdmkotbtnp .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#csefjnuiza .gt_row {
+#mdmkotbtnp .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2348,7 +2352,7 @@ Community Briefs
   overflow-x: hidden;
 }
 
-#csefjnuiza .gt_stub {
+#mdmkotbtnp .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2360,7 +2364,7 @@ Community Briefs
   padding-left: 12px;
 }
 
-#csefjnuiza .gt_summary_row {
+#mdmkotbtnp .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2370,7 +2374,7 @@ Community Briefs
   padding-right: 5px;
 }
 
-#csefjnuiza .gt_first_summary_row {
+#mdmkotbtnp .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2380,7 +2384,7 @@ Community Briefs
   border-top-color: #D3D3D3;
 }
 
-#csefjnuiza .gt_grand_summary_row {
+#mdmkotbtnp .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2390,7 +2394,7 @@ Community Briefs
   padding-right: 5px;
 }
 
-#csefjnuiza .gt_first_grand_summary_row {
+#mdmkotbtnp .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2400,11 +2404,11 @@ Community Briefs
   border-top-color: #D3D3D3;
 }
 
-#csefjnuiza .gt_striped {
+#mdmkotbtnp .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#csefjnuiza .gt_table_body {
+#mdmkotbtnp .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2413,7 +2417,7 @@ Community Briefs
   border-bottom-color: #D3D3D3;
 }
 
-#csefjnuiza .gt_footnotes {
+#mdmkotbtnp .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2427,13 +2431,13 @@ Community Briefs
   border-right-color: #D3D3D3;
 }
 
-#csefjnuiza .gt_footnote {
+#mdmkotbtnp .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#csefjnuiza .gt_sourcenotes {
+#mdmkotbtnp .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2447,41 +2451,41 @@ Community Briefs
   border-right-color: #D3D3D3;
 }
 
-#csefjnuiza .gt_sourcenote {
+#mdmkotbtnp .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#csefjnuiza .gt_left {
+#mdmkotbtnp .gt_left {
   text-align: left;
 }
 
-#csefjnuiza .gt_center {
+#mdmkotbtnp .gt_center {
   text-align: center;
 }
 
-#csefjnuiza .gt_right {
+#mdmkotbtnp .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#csefjnuiza .gt_font_normal {
+#mdmkotbtnp .gt_font_normal {
   font-weight: normal;
 }
 
-#csefjnuiza .gt_font_bold {
+#mdmkotbtnp .gt_font_bold {
   font-weight: bold;
 }
 
-#csefjnuiza .gt_font_italic {
+#mdmkotbtnp .gt_font_italic {
   font-style: italic;
 }
 
-#csefjnuiza .gt_super {
+#mdmkotbtnp .gt_super {
   font-size: 65%;
 }
 
-#csefjnuiza .gt_footnote_marks {
+#mdmkotbtnp .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 65%;
@@ -2709,9 +2713,9 @@ are there any papers with quantitative data on what data types has actually been
 <p>A second case is for a study that may generate many images but can only process and fully annotate a subset. For example, there can be a large number of pathology images without any annotations of disease features by a pathologist, as these kinds of annotations are manually intensive. If all data are expected to be annotated – and annotations are especially important for the usefulness of the images – the question arises whether images outside the fully annotated subset should be shared. A clear suggestion seems to be that sharing images without annotations is better than not sharing images – for some images, it is possible for someone else to go back and add annotations. Note that basic, automatic annotations are still expected; using the example above, the images should still have an associated sample ID and tissue source.</p>
 <h3 id="clinical-data">Clinical data</h3>
 <p>Clinical data can be extremely diverse and unstructured. While we have incorporated comments for structured clinical data, we have not received comments for unstructured clinical data such as patient histories that are often captured in text reports. Clinical data still remains very open to comment from those in the community.</p>
-<h3 id="alternative-assaysystem-data">Alternative assay/system data</h3>
+<h3 id="alternative-assayplatform-data">Alternative assay/platform data</h3>
 <p>The specifications table includes the most common assay data types instead of enumerating all variants or alternatives. An insightful community observation suggested there can be less common but better alternatives for some assays. The example given was using a WES capillary protein analysis system in lieu of traditional western blot for easier analysis as well as raw data sharing.</p>
-<p>This is actually asking a different design question – not necessarily “What level and format of data should be used for better sharing?” but “What assays/systems should be used for better sharing?” It is certainly not within our purview to specify what should be used, and experiments will have to be planned around what assays the researchers are familiar with and what equipment is available. We are also aware that researchers are not likely to think about data sharing specifications until results have been generated, while this kind of consideration would take place before experiments even start. Nevertheless, if the investigator is at the juncture of a design decision, awareness of alternatives and their relative merit in terms of data sharing could be helpful. <!-- e.g. there was that question of whether a project should use Redcap or that new other system, Data-something? we're not sure which is actually better --> Unfortunately, this aspect is not captured well in our current specifications. We welcome the community providing more suggestions in this regard. <!-- someday we might enumerate alternatives and rank them --></p>
+<p>This is actually asking a different design question – not necessarily “What level and format of data should be used for better sharing?” but “What assays/platform should be used for better sharing?” It is certainly not within our purview to specify what should be used, and experiments will have to be planned around what assays the researchers are familiar with and what equipment is available. We are also aware that researchers are not likely to think about data sharing specifications until results have been generated, while this kind of consideration would take place before experiments even start. Nevertheless, if the investigator is at the juncture of a design decision, awareness of alternatives and their relative merit in terms of data sharing could be helpful. <!-- e.g. there was that question of whether a project should use Redcap or that new other system, Data-something? we're not sure which is actually better --> Unfortunately, this aspect is not captured well in our current specifications. We welcome the community providing more suggestions in this regard. <!-- someday we might enumerate alternatives and rank them --></p>
 <h2 id="quantified-results-from-request-for-comments-rfc">Quantified results from Request for Comments (RFC)</h2>
 <div class="layout-chunk" data-layout="l-body">
 
