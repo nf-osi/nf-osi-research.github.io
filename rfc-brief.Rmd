@@ -20,6 +20,9 @@ date: "`r Sys.Date()`"
 description: |
   Status: **Draft**
 draft: yes
+output:
+  distill::distill_article:
+    self_contained: false
 ---
 
 ```{r setup, include=FALSE}
