@@ -131,7 +131,7 @@ The specifications table includes the most common assay data types instead of en
 An insightful community observation suggested there can be less common but better alternatives for some assays.
 The example given was using a WES capillary protein analysis system in lieu of traditional western blot for easier analysis as well as raw data sharing. 
 
-This is actually asking a different design question -- not necessarily "What level and format of data should be used for better sharing?" but "What assays/systems should be used for better sharing?" 
+This is actually asking a different design question -- not necessarily "What level and format of data should be used for better sharing?" but "What assays/platform should be used for better sharing?" 
 It is certainly not within our purview to specify what should be used, and experiments will have to be planned around what assays the researchers are familiar with and what equipment is available.
 We are also aware that researchers are not likely to think about data sharing specifications until results have been generated, while this kind of consideration would take place before experiments even start.
 Nevertheless, if the investigator is at the juncture of a design decision, awareness of alternatives and their relative merit in terms of data sharing could be helpful.
