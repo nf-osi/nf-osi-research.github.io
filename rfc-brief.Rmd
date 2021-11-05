@@ -1,0 +1,225 @@
+---
+title: "Data sharing specifications for the NF community"
+author:
+- name: Robert Allaway
+   url: https://github.com/allaway
+  affiliation: Sage Bionetworks
+  affiliation_url: https://sagebionetworks.org/
+  orcid_id: 0000-0003-3573-3565
+- name: Jineta Banerjee
+  url: https://github.com/jaybee84
+  affiliation: Sage Bionetworks
+  affiliation_url: https://sagebionetworks.org/
+  orcid_id: 0000-0002-1775-3645
+- name: Anh Nguyet Vu
+  url: https://github.com/anngvu
+  affiliation: Sage Bionetworks
+  affiliation_url: https://sagebionetworks.org/
+  orcid_id: 0000-0003-1488-6730
+date: "`r Sys.Date()`"
+description: |
+  Status: **Draft**
+draft: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(gt)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+survey <- read.csv("materials/rfc/rfc_responses.csv")
+```
+
+## Abstract
+
+The NF Data Portal community is dedicated towards bringing the latest data and research from the NF research community to the world. In doing so the Portal maintains and implements FAIR standards to make various types of research data findable, accessible, interoperable and reusable. Recently the Portal community reached out to the research community asking feedback regarding sharing logistics of various data types and their file formats. This document describes data types and formats that should be shared by the Neurofibromatosis (NF) research community for the NF Data Portal. 
+
+## Introduction
+
+The NF Data Portal is a collaborative data-sharing platform for Neurofibromatosis, a rare genetic disease. 
+It has been jointly supported by multiple funding organizations -- the Gilbert Family Foundation (GFF), Children's Tumor Foundation (CTF), Neurofibromatosis Therapeutic Acceleration Program (NTAP), NCI Developmental and Hyperactive Ras Tumor SPORE (DHART SPORE), CDMRP Neurofibromatosis Research Program (CDMRP NFRP), and Neurofibromatosis Research Initiative (NFRI) -- and therefore represents substantial NF research activity.
+
+As the NF Data Portal community continues to expand to add newly affiliated as well as independent researchers, and therefore new data, having these standards will help maintain the quality and quantity of our valuable resources. 
+But also important is that this document should actually benefit our data contributors.
+<!-- to answer the question of "Why should I glance at this?" -->
+One advantage is allowing our contributors to prioritize submissions accordingly.
+- making it clear what data formats are preferred for sharing.
+These specifications should lead to higher-impact data, encouraging sharing of interoperable formats that make data more likely to be reused (and cited). 
+Finally, this open document lets our community be informed of the current state of art, including specifications currently *not* included, so that they can provide input towards specific/new data formats.
+
+The data-sharing specifications highlighted in this document have been informed by several members in the research community, using their opinions solicited through an open RFC.
+First are requirements already established by the NF-OSI funding organizations, which typically apply to types of data which have clear "reusability" value and for which there are well defined strategies for sharing (e.g. sequencing data).
+Second is the feedback received from the community, which was especially influential for data types outside of what is required by default, i.e. more "optional" data types. 
+This feedback was solicited from the research community through an open RFC, from which results are incorporated here. 
+Lastly, journal requirements and other repositories also had some influence on these specifications.
+
+
+## Data types and formats summary
+
+Table \@ref(tab:table-main) summarizes specifications for common data types that are of interest for the NF community.
+These standards should apply for most general cases.
+However, we do note that for some data types, the community comments provided additional considerations that serve to qualify or supplement what is in this table.
+Community results are also summarized in Quantified Results section. 
+
+```{r table-main, fig.label="", layout="l-page", echo=F}
+
+# for gt, use captions instead of fig.label
+table1 <- read.csv("materials/rfc/data_specs.csv")
+table1 %>%
+  select(-c(Description, PrivateNotes)) %>%
+  gt(
+  rowname_col = "Subtype",
+  groupname_col = "ParentType",
+  caption = "Specifications for relevant common data types."
+  ) %>%
+  fmt_markdown(columns = c("Levels")) %>%
+  cols_label(
+    PublicNotes = "Notes"
+  ) %>%
+  # tab_header(title = "Data sharing specifications") %>%
+  tab_footnote(
+    footnote = "Level nomenclature can be cross-referenced with https://gdc.cancer.gov/resources-tcga-users/tcga-code-tables/data-levels, where 'raw' corresponses to Level 1 and 'semi-processed' most closely corresponds to Level 2.",
+    locations = cells_column_labels(columns = Levels)
+  ) %>%
+  tab_style(style = list(cell_text(color = 'gray', style = "italic")), 
+            locations = cells_body(columns = Requirement, 
+                                   rows = Requirement != "required")) %>%
+  tab_options(
+    row_group.background.color = "#FFEFDB",
+    table.font.size = "14px",
+    footnotes.marks = "letters")
+```
+
+
+## Additional considerations
+
+<!-- i.e. letter of data sharing law vs. the spirit of data sharing law -->
+The specifications should guide contributions in the "spirit of effective data sharing" and are most applicable when they lead to intended results, e.g. higher-impact shared data and reasonable balance of contributor/administrative effort given the expected value of the data shared. 
+<!-- would like to use "optimal" in place of "reasonable" someday; hard to optimize if expected values are unknown;
+are there any papers with quantitative data on what data types has actually been most reused?  -->
+But there can be debatable cases where a "required" specification is less applicable. 
+The community has anticipated issues like these and provided recommendations for some of them.
+<!-- we do want to minimize having to examine too many on a case-by-case basis, though -->
+
+### Imaging data
+
+Comments from the community noted two possible issues for imaging data. 
+
+A first question is whether imaging data should be shared when there are at most only a few images, which is of limited utility for re-analysis (e.g. with machine learning) usually requiring a large set of images.
+That is, imaging data may require a "critical mass".
+When only a few images are contributed, these are likely only representative images that might also appear in a publication.
+In this case, it may not be really "required" that these images have to be shared.
+
+A second case is for a study that may generate many images but can only process and fully annotate a subset.
+For example, there can be a large number of pathology images without any annotations of disease features by a pathologist, as these kinds of annotations are manually intensive.
+If all data are expected to be annotated -- and annotations are especially important for the usefulness of the images -- the question arises whether images outside the fully annotated subset should be shared. 
+A clear suggestion seems to be that sharing images without annotations is better than not sharing images -- for some images, it is possible for someone else to go back and add annotations.
+Note that basic, automatic annotations are still expected; using the example above, the images should still have an associated sample ID and tissue source.
+
+
+### Clinical data
+
+Clinical data can be extremely diverse and unstructured. 
+While we have incorporated comments for structured clinical data, we have not received comments for unstructured clinical data such as patient histories that are often captured in text reports. 
+Clinical data still remains very open to comment from those in the community.
+
+### Alternative assay/platform data
+
+The specifications table includes the most common assay data types instead of enumerating all variants or alternatives. 
+An insightful community observation suggested there can be less common but better alternatives for some assays.
+The example given was using a WES capillary protein analysis system in lieu of traditional western blot for easier analysis as well as raw data sharing. 
+
+This is actually asking a different design question -- not necessarily "What level and format of data should be used for better sharing?" but "What assays/platform should be used for better sharing?" 
+It is certainly not within our purview to specify what should be used, and experiments will have to be planned around what assays the researchers are familiar with and what equipment is available.
+We are also aware that researchers are not likely to think about data sharing specifications until results have been generated, while this kind of consideration would take place before experiments even start.
+Nevertheless, if the investigator is at the juncture of a design decision, awareness of alternatives and their relative merit in terms of data sharing could be helpful.
+<!-- e.g. there was that question of whether a project should use Redcap or that new other system, Data-something? we're not sure which is actually better -->
+Unfortunately, this aspect is not captured well in our current specifications.
+We welcome the community providing more suggestions in this regard.
+<!-- someday we might enumerate alternatives and rank them -->
+
+## Quantified results from Request for Comments (RFC)
+
+```{r , echo=F}
+
+# add horizontal line for majority or supermajority?
+defaultPlot <- function(data, title) {
+  
+  ggplot(data, aes(x = assay, y = n, fill = response)) +
+       geom_bar(stat="identity") +
+  scale_fill_manual(values = c(Yes = "#4DBBD5FF", No = "#E64B35FF", `Unspecified` = "gray")) +
+  theme_minimal() +
+  xlab("Assay or Data Type Category") +
+  ylab("Response Tally") +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+  
+}
+
+
+```
+
+Figure \@ref(fig:fig-required) summarizes responses to the question "Should it be required to deposit raw data?" for the different assay or different type categories.
+There were four categories that reached majority consensus for sharing:  in vivo growth tumor data, Sanger sequencing, structured clinical data, and western blot. 
+
+```{r fig-required, fig.cap="Survey responses for whether depositing raw data should be required for different assays", echo=F}
+
+q_required <- grep("should.it.be.required.to.deposit", names(survey), val = T)
+r_required <- survey %>% 
+  select(all_of(q_required)) %>%
+  pivot_longer(cols = all_of(q_required), names_to = "assay", values_to = "response") %>%
+  mutate(
+    assay = regmatches(assay, regexpr("^.+(?=..should)", assay, perl = T)),
+    response = recode(na_if(response, ""), .missing = "Unspecified")) %>% 
+  count(assay, response)
+
+defaultPlot(r_required, "Required")
+
+# could do a plot using percentages, 
+# but could seem disingenuous to "hide" that there were only 20 responses
+```
+
+Figure \@ref(fig:fig-interest-reanalyze) summarizes responses to the question "Have you ever re-analyzed this type of data, or wanted to, if the right dataset existed?" for the different assay or different type categories.
+The highest interest was for structured clinical data, which also garnered the strongest consensus that it should be shared (Fig \@ref(fig:fig-required)).
+
+
+```{r fig-interest-reanalyze, fig.cap="Survey responses for previous experience or interest in re-analyzing data for different assays", echo=F}
+
+q_interest <- grep("have.you.ever.re.analyzed", names(survey), val = T)
+r_interest <- survey %>% 
+  select(all_of(q_interest)) %>%
+  pivot_longer(cols = all_of(q_interest), names_to = "assay", values_to = "response") %>%
+  mutate(
+    assay = regmatches(assay, regexpr("^.+(?=..have)", assay, perl = T)),
+    response = recode(na_if(response, ""), .missing = "Unspecified")) %>% 
+  count(assay, response)
+
+defaultPlot(r_interest, "Required")
+
+```
+
+Figure \@ref(fig:fig-other-required) summarizes responses to the question "Have you previously been required to share a complete raw dataset by a funder or journal?"
+The responses suggest that funder or journal sharing requirements for these assays or data types are not common, except for perhaps structured clinical data and western blots.
+Compared to ratings in Fig \@ref(fig:fig-required), the results here also suggest that the community is willing to go beyond the "baseline" requirements of funders or journals.
+
+```{r fig-other-required, fig.cap="Survey responses for previous requirements to share raw data by a funder or journal", echo=F}
+
+q_other_required <- grep("by.a.funder.or.journal", names(survey), val = T)
+r_other_required <- survey %>% 
+  select(all_of(q_other_required)) %>%
+  pivot_longer(cols = all_of(q_other_required), names_to = "assay", values_to = "response") %>%
+  mutate(
+    assay = regmatches(assay, regexpr("^.+(?=..Have)", assay, perl = T)),
+    response = recode(na_if(response, ""), .missing = "Unspecified")) %>% 
+  count(assay, response)
+
+defaultPlot(r_other_required, "Required")
+
+```
+
+
+
+
+
+
