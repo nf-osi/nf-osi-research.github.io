@@ -49,7 +49,7 @@ The burden of having to submit data in multiple formats can also be avoided, sin
 These specifications should lead to higher-impact data, encouraging sharing of interoperable formats that make data more likely to be reused (and cited). 
 Finally, this open document lets our community be informed of the current state of art, including specifications currently *not* included, so that they can provide input towards specific/new data formats.
 
-These current data-sharing specifications have been informed by several sources. 
+The data-sharing specifications highlighted in this document have been informed by several members in the research community, using their opinions solicited through an open RFC.
 First are requirements already established by the NF-OSI funding organizations, which typically apply to types of data which have clear "reusability" value and for which there are well defined strategies for sharing (e.g. sequencing data).
 Second is the feedback received from the community, which was especially influential for data types outside of what is required by default, i.e. more "optional" data types. 
 This feedback was solicited from the research community through an open RFC, from which results are incorporated here. 
