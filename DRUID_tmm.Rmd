@@ -5,10 +5,23 @@ author:
   affiliation_url: https://sagebionetworks.org/
   name: Jineta Banerjee
   url: null
-date: "`r Sys.Date()`"
 output:
   html_document:
+    toc: yes
+    number_sections: yes
+    toc_float:
+      collapsed: no
+      smooth_scroll: no
+    fig_width: 7
+    fig_height: 6
+    fig_caption: yes
     df_print: paged
+  pdf_document:
+    toc: yes
+    always_allow_html: true
+params:
+  orig_date: 'Original Publish Date: Oct29, 2021'
+  update_date: !r paste("Last updated on:", format(Sys.time(), '%d %B, %Y'))
 description: |
   DRUID analysis of JHU Biobank data
 ---
