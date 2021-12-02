@@ -16,13 +16,18 @@ author:
   affiliation: Sage Bionetworks
   affiliation_url: https://sagebionetworks.org/
   orcid_id: 0000-0003-1488-6730
-date: "`r Sys.Date()`"
+- name: |
+    </br><span class = "custom-heading">Community Contributors</span></br>
+- name: Larry Benowitz, Joanne Ngeow, Vincent Riccardi, Scott Plotkin, Jianqiang Wu, Angela Hirbe, Filipa Jorge Teixeira, Shruti Garg, Rianne Oostenbrink, Bruce Korf, Hui Liu, Adrienne Watson, Parnal Joshi, Tom Reh, Eva Trevisson
+date: "2021-12-01"
 description: |
-  Status: **Draft**
+  Status: **Proposed standard**
 draft: yes
 output:
   distill::distill_article:
     self_contained: false
+    theme: theme.css
+bibliography: citations.bib
 ---
 
 ```{r setup, include=FALSE}
@@ -31,40 +36,45 @@ library(gt)
 library(dplyr)
 library(tidyr)
 library(ggplot2)
+library(tidygraph)
+library(ggraph)
 
 survey <- read.csv("materials/rfc/rfc_responses.csv")
 ```
 
 ## Abstract
 
-The NF Data Portal community is dedicated towards bringing the latest data and research from the NF research community to the world. In doing so the Portal maintains and implements FAIR standards to make various types of research data findable, accessible, interoperable and reusable. Recently the Portal community reached out to the research community asking feedback regarding sharing logistics of various data types and their file formats. This document describes data types and formats that should be shared by the Neurofibromatosis (NF) research community for the NF Data Portal. 
+The NF Data Portal community is dedicated towards bringing the latest data and research from the NF research community to the world. 
+In doing so the Portal maintains and implements FAIR standards to make various types of research data findable, accessible, interoperable and reusable. 
+Recently the Portal community reached out to the research community asking feedback regarding sharing logistics of various data types and their file formats. 
+This document describes data types and formats that should be shared by the Neurofibromatosis (NF) research community for the NF Data Portal. 
 
 ## Introduction
 
-The NF Data Portal is a collaborative data-sharing platform for Neurofibromatosis, a rare genetic disease. 
+The NF Data Portal is a collaborative data-sharing platform for Neurofibromatosis, a rare genetic disease [@allaway_engaging_2019]. 
 It has been jointly supported by multiple funding organizations -- the Gilbert Family Foundation (GFF), Children's Tumor Foundation (CTF), Neurofibromatosis Therapeutic Acceleration Program (NTAP), NCI Developmental and Hyperactive Ras Tumor SPORE (DHART SPORE), CDMRP Neurofibromatosis Research Program (CDMRP NFRP), and Neurofibromatosis Research Initiative (NFRI) -- and therefore represents substantial NF research activity.
 
 As the NF Data Portal community continues to expand to add newly affiliated as well as independent researchers, and therefore new data, having these standards will help maintain the quality and quantity of our valuable resources. 
 But also important is that this document should actually benefit our data contributors.
 <!-- to answer the question of "Why should I glance at this?" -->
 One advantage is allowing our contributors to prioritize submissions accordingly.
-- making it clear what data formats are preferred for sharing.
-These specifications should lead to higher-impact data, encouraging sharing of interoperable formats that make data more likely to be reused (and cited). 
+As well, our contributors have a clear reference for the data formats that are preferred for sharing.
+These specifications should lead to higher-impact data through encouraging interoperable formats that make data more likely to be reused (and cited). 
 Finally, this open document lets our community be informed of the current state of art, including specifications currently *not* included, so that they can provide input towards specific/new data formats.
 
-The data-sharing specifications highlighted in this document have been informed by several members in the research community, using their opinions solicited through an open RFC.
-First are requirements already established by the NF-OSI funding organizations, which typically apply to types of data which have clear "reusability" value and for which there are well defined strategies for sharing (e.g. sequencing data).
-Second is the feedback received from the community, which was especially influential for data types outside of what is required by default, i.e. more "optional" data types. 
-This feedback was solicited from the research community through an open RFC, from which results are incorporated here. 
-Lastly, journal requirements and other repositories also had some influence on these specifications.
+The data-sharing specifications highlighted in this document have been informed by members in the research community, using their opinions solicited through an open Request for Comments (RFC).
+The feedback received from the community was especially influential for data types outside of what is required by default, i.e. more "optional" data types. 
+These specifications also follow requirements already established by the NF-OSI funding organizations, which apply to data types with clear "reusability" value and for which there are well-defined strategies for sharing (e.g. sequencing data).
+Journal requirements and other repositories were considered to a much lesser extent.
 
 
 ## Data types and formats summary
 
-Table \@ref(tab:table-main) summarizes specifications for common data types that are of interest for the NF community.
+As a representation of the most recent funder requirements and RFC results, table \@ref(tab:table-main) summarizes specifications for common data types that are of interest for the NF community.
 These standards should apply for most general cases.
-However, we do note that for some data types, the community comments provided additional considerations that serve to qualify or supplement what is in this table.
-Community results are also summarized in Quantified Results section. 
+However, we do note that for some data types, the community provided additional considerations that serve to qualify or supplement what is in this table (see [Additional considerations](#qualitative)).
+This qualitative feedback point to certain data domains that may need deeper evaluation. 
+Alongside the qualitative results, quantitative breakdowns for components of the RFC are available (see [RFC statistics](#quantitative)).   
 
 ```{r table-main, fig.label="", layout="l-page", echo=F}
 
@@ -96,14 +106,15 @@ table1 %>%
 ```
 
 
-## Additional considerations
+## Additional considerations { #qualitative }
 
 <!-- i.e. letter of data sharing law vs. the spirit of data sharing law -->
-The specifications should guide contributions in the "spirit of effective data sharing" and are most applicable when they lead to intended results, e.g. higher-impact shared data and reasonable balance of contributor/administrative effort given the expected value of the data shared. 
+The current specifications should guide contributions in the "spirit of effective data sharing" and are most applicable when they lead to intended results, e.g. higher-impact shared data and reasonable balance of contributor/administrative effort given the expected value of the data shared. 
 <!-- would like to use "optimal" in place of "reasonable" someday; hard to optimize if expected values are unknown;
 are there any papers with quantitative data on what data types has actually been most reused?  -->
 But there can be debatable cases where a "required" specification is less applicable. 
 The community has anticipated issues like these and provided recommendations for some of them.
+However, difficult and unclear cases remain or may yet emerge, which will need more community consensus still.
 <!-- we do want to minimize having to examine too many on a case-by-case basis, though -->
 
 ### Imaging data
@@ -143,9 +154,61 @@ Unfortunately, this aspect is not captured well in our current specifications.
 We welcome the community providing more suggestions in this regard.
 <!-- someday we might enumerate alternatives and rank them -->
 
-## Quantified results from Request for Comments (RFC)
 
-```{r , echo=F}
+## RFC statistics { #quantitative }
+
+### Respondent profiles
+
+```{r fig-respondent-type, fig.cap="Demographic representation of RFC community respondents", echo=F}
+
+types <- survey %>%
+  pull(Type)
+
+n <- nrow(survey)
+
+types <- strsplit(types, ", ") %>%
+  unlist()
+types.prct <- (table(types) / n) * 100
+types.dt <- as.data.frame(types.prct)
+
+# Edges
+  nodes <- types.dt %>%
+    select(demographic = types, size = Freq) %>%
+    mutate(size = round(size, 0),
+           label = paste0(demographic, "\n", size, "%"),
+           color = )
+  
+  # Graph obj and graph
+  graph <- tidygraph::tbl_graph(nodes)
+  set.seed(1)
+  # Layering manually because https://github.com/thomasp85/ggraph/issues/230
+  ggraph(graph, 'circlepack', weight = size) +
+    ggraph::geom_node_circle(aes(fill = demographic)) +
+    ggplot2::scale_fill_brewer(type = "qual", palette = 2) +
+    ggraph::geom_node_label(aes(label = label)) +
+    ggplot2::coord_fixed() +
+    ggplot2::theme(legend.position = "FALSE") +
+    ggplot2::guides(fill = guide_legend(title = "demographic represented")) +
+    ggplot2::theme_void() #+ geom_node_label(aes(label=name), size=1)
+
+
+```
+
+Figure \@ref(fig:fig-respondent-type) summarizes the representation of different demographic types as self-reported through the question *"What 'type' of NF research community member are you?"*
+Because respondents could indicate more than one demographic type, a statistic of 43% here should be interpreted to mean that 43% of the responses represented the clinician perspective. 
+Overall, the RFC garnered highest representation from bench scientists and clinicians, which was expected. 
+That clinicians had nearly as much representation as bench scientists likely reflects the highly translational focus of the NF Data Portal community relative to more general data repositories. 
+
+In the RFC, we did not distinguish whether respondents considered themselves more a "data contributor", a "data re-user" or possibly "equally both". 
+In the future, this additional facet may provide additional insight in case there are conflicts in perspectives between these profiles. 
+<!-- and not that clinicians are more opinionated and more willing to answer surveys as a group -- clinicians are usually busy so their responses are highly valuable --> 
+<!-- demographic composition of respondents might change consensus results; also might be interesting how these demographics change and whether overall consensus changes --> 
+
+<!-- was there a type that did not get any representation? ANV can't access original survey, only results -->
+
+### Survey quantified responses
+
+```{r defaultPlot, echo=F}
 
 # add horizontal line for majority or supermajority?
 defaultPlot <- function(data, title) {
@@ -163,7 +226,7 @@ defaultPlot <- function(data, title) {
 
 ```
 
-Figure \@ref(fig:fig-required) summarizes responses to the question "Should it be required to deposit raw data?" for the different assay or different type categories.
+Figure \@ref(fig:fig-required) summarizes responses to the question *"Should it be required to deposit raw data?"* for the different assay or different type categories.
 There were four categories that reached majority consensus for sharing:  in vivo growth tumor data, Sanger sequencing, structured clinical data, and western blot. 
 
 ```{r fig-required, fig.cap="Survey responses for whether depositing raw data should be required for different assays", echo=F}
@@ -183,7 +246,7 @@ defaultPlot(r_required, "Required")
 # but could seem disingenuous to "hide" that there were only 20 responses
 ```
 
-Figure \@ref(fig:fig-interest-reanalyze) summarizes responses to the question "Have you ever re-analyzed this type of data, or wanted to, if the right dataset existed?" for the different assay or different type categories.
+Figure \@ref(fig:fig-interest-reanalyze) summarizes responses to the question *"Have you ever re-analyzed this type of data, or wanted to, if the right dataset existed?"* for the different assay or different type categories.
 The highest interest was for structured clinical data, which also garnered the strongest consensus that it should be shared (Fig \@ref(fig:fig-required)).
 
 
@@ -202,7 +265,7 @@ defaultPlot(r_interest, "Required")
 
 ```
 
-Figure \@ref(fig:fig-other-required) summarizes responses to the question "Have you previously been required to share a complete raw dataset by a funder or journal?"
+Figure \@ref(fig:fig-other-required) summarizes responses to the question *"Have you previously been required to share a complete raw dataset by a funder or journal?"*
 The responses suggest that funder or journal sharing requirements for these assays or data types are not common, except for perhaps structured clinical data and western blots.
 Compared to ratings in Fig \@ref(fig:fig-required), the results here also suggest that the community is willing to go beyond the "baseline" requirements of funders or journals.
 
