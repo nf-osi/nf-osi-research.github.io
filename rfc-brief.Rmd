@@ -18,7 +18,7 @@ author:
   orcid_id: 0000-0003-1488-6730
 - name: |
     </br><span class = "custom-heading">Community Contributors</span></br>
-- name: Larry Benowitz, Joanne Ngeow, Vincent Riccardi, Scott Plotkin, Jianqiang Wu, Angela Hirbe, Filipa Jorge Teixeira, Shruti Garg, Rianne Oostenbrink, Bruce Korf, Hui Liu, Adrienne Watson, Parnal Joshi, Tom Reh, Eva Trevisson
+- name: Larry Benowitz, Joanne Ngeow, Vincent Riccardi, Scott Plotkin, Jianqiang Wu, Angela C. Hirbe, Filipa Jorge Teixeira, Shruti Garg, Rianne Oostenbrink, Bruce Korf, Hui Liu, Adrienne L. Watson, Parnal Joshi, Tom Reh, Eva Trevisson
 date: "2021-12-01"
 description: |
   Status: **Proposed standard**
