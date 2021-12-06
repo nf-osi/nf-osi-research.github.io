@@ -159,7 +159,7 @@ We welcome the community providing more suggestions in this regard.
 
 ### Respondent profiles
 
-```{r fig-respondent-type, fig.cap="Demographic representation of RFC community respondents", echo=F}
+```{r fig-respondent-type, fig.cap="Demographic representation of RFC community respondents", fig.fullwidth = T, echo=F}
 
 types <- survey %>%
   pull(Type)
@@ -175,8 +175,8 @@ types.dt <- as.data.frame(types.prct)
   nodes <- types.dt %>%
     select(demographic = types, size = Freq) %>%
     mutate(size = round(size, 0),
-           label = paste0(demographic, "\n", size, "%"),
-           color = )
+           label = stringr::str_wrap(demographic, 20) %>% 
+             paste0(": ", size, "%"))
   
   # Graph obj and graph
   graph <- tidygraph::tbl_graph(nodes)
@@ -185,8 +185,8 @@ types.dt <- as.data.frame(types.prct)
   ggraph(graph, 'circlepack', weight = size) +
     ggraph::geom_node_circle(aes(fill = demographic)) +
     ggplot2::scale_fill_brewer(type = "qual", palette = 2) +
-    ggraph::geom_node_label(aes(label = label)) +
-    ggplot2::coord_fixed() +
+    ggraph::geom_node_label(aes(label = label), size = 3) +
+    ggplot2::coord_fixed(clip = 'off') +
     ggplot2::theme(legend.position = "FALSE") +
     ggplot2::guides(fill = guide_legend(title = "demographic represented")) +
     ggplot2::theme_void() #+ geom_node_label(aes(label=name), size=1)
