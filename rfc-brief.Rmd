@@ -21,8 +21,8 @@ author:
 - name: Larry Benowitz, Joanne Ngeow, Vincent Riccardi, Scott Plotkin, Jianqiang Wu, Angela C. Hirbe, Filipa Jorge Teixeira, Shruti Garg, Rianne Oostenbrink, Bruce Korf, Hui Liu, Adrienne L. Watson, Parnal Joshi, Tom Reh, Eva Trevisson
 date: "2021-12-01"
 description: |
-  Status: **Proposed standard**
-draft: yes
+  Status: **Initial standard**, Updated on: **`r Sys.Date()`**
+draft: no
 output:
   distill::distill_article:
     self_contained: false
@@ -98,7 +98,7 @@ table1 %>%
   ) %>%
   tab_style(style = list(cell_text(color = 'gray', style = "italic")), 
             locations = cells_body(columns = Requirement, 
-                                   rows = Requirement != "required")) %>%
+                                   rows = !Requirement %in% c("required","sometimes required"))) %>%
   tab_options(
     row_group.background.color = "#FFEFDB",
     table.font.size = "14px",
@@ -176,7 +176,7 @@ types.dt <- as.data.frame(types.prct)
     select(demographic = types, size = Freq) %>%
     mutate(size = round(size, 0),
            label = paste0(demographic, "\n", size, "%"),
-           color = )
+           color = demographic)
   
   # Graph obj and graph
   graph <- tidygraph::tbl_graph(nodes)
@@ -283,9 +283,3 @@ r_other_required <- survey %>%
 defaultPlot(r_other_required, "Required")
 
 ```
-
-
-
-
-
-
