@@ -19,9 +19,10 @@ author:
 - name: |
     </br><span class = "custom-heading">Community Contributors</span></br>
 - name: Larry Benowitz, Joanne Ngeow, Vincent Riccardi, Scott Plotkin, Jianqiang Wu, Angela C. Hirbe, Filipa Jorge Teixeira, Shruti Garg, Rianne Oostenbrink, Bruce Korf, Hui Liu, Adrienne L. Watson, Parnal Joshi, Tom Reh, Eva Trevisson
-date: "2021-12-01"
+date: "2022-09-02"
 description: |
-  Status: **Proposed standard**
+  Status: **Current standard**</br>
+  Version: **1.1.0**
 draft: yes
 output:
   distill::distill_article:
@@ -175,8 +176,7 @@ types.dt <- as.data.frame(types.prct)
   nodes <- types.dt %>%
     select(demographic = types, size = Freq) %>%
     mutate(size = round(size, 0),
-           label = paste0(demographic, "\n", size, "%"),
-           color = )
+           label = paste0(demographic, "\n", size, "%"))
   
   # Graph obj and graph
   graph <- tidygraph::tbl_graph(nodes)
@@ -240,52 +240,4 @@ r_required <- survey %>%
     response = recode(na_if(response, ""), .missing = "Unspecified")) %>% 
   count(assay, response)
 
-defaultPlot(r_required, "Required")
-
-# could do a plot using percentages, 
-# but could seem disingenuous to "hide" that there were only 20 responses
 ```
-
-Figure \@ref(fig:fig-interest-reanalyze) summarizes responses to the question *"Have you ever re-analyzed this type of data, or wanted to, if the right dataset existed?"* for the different assay or different type categories.
-The highest interest was for structured clinical data, which also garnered the strongest consensus that it should be shared (Fig \@ref(fig:fig-required)).
-
-
-```{r fig-interest-reanalyze, fig.cap="Survey responses for previous experience or interest in re-analyzing data for different assays", echo=F}
-
-q_interest <- grep("have.you.ever.re.analyzed", names(survey), val = T)
-r_interest <- survey %>% 
-  select(all_of(q_interest)) %>%
-  pivot_longer(cols = all_of(q_interest), names_to = "assay", values_to = "response") %>%
-  mutate(
-    assay = regmatches(assay, regexpr("^.+(?=..have)", assay, perl = T)),
-    response = recode(na_if(response, ""), .missing = "Unspecified")) %>% 
-  count(assay, response)
-
-defaultPlot(r_interest, "Required")
-
-```
-
-Figure \@ref(fig:fig-other-required) summarizes responses to the question *"Have you previously been required to share a complete raw dataset by a funder or journal?"*
-The responses suggest that funder or journal sharing requirements for these assays or data types are not common, except for perhaps structured clinical data and western blots.
-Compared to ratings in Fig \@ref(fig:fig-required), the results here also suggest that the community is willing to go beyond the "baseline" requirements of funders or journals.
-
-```{r fig-other-required, fig.cap="Survey responses for previous requirements to share raw data by a funder or journal", echo=F}
-
-q_other_required <- grep("by.a.funder.or.journal", names(survey), val = T)
-r_other_required <- survey %>% 
-  select(all_of(q_other_required)) %>%
-  pivot_longer(cols = all_of(q_other_required), names_to = "assay", values_to = "response") %>%
-  mutate(
-    assay = regmatches(assay, regexpr("^.+(?=..Have)", assay, perl = T)),
-    response = recode(na_if(response, ""), .missing = "Unspecified")) %>% 
-  count(assay, response)
-
-defaultPlot(r_other_required, "Required")
-
-```
-
-
-
-
-
-
