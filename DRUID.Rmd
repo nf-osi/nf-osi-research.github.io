@@ -7,6 +7,7 @@ author:
   url: null
 date: "`r Sys.Date()`"
 output: distill::distill_article
+    #code_folding: true
 description: |
   DRUID analysis of JHU Biobank data
 ---
@@ -180,7 +181,14 @@ ggplot(data=MPNSTvsPNF_ordered, aes(x=logFC, y=-log10(adj.P.Val))) +
 
 ## Predicting drug candidates based on significant DEGs using DRUID:
 
-We then took the subset of genes that were significantly differentially expressed between MPNST and pNF tumor types and used DRUID to enrich candidate drugs to revert the MPNST phenotype to pNF phenotype. We did this using the following steps:
+We then took the subset of genes that were significantly differentially expressed between MPNST and pNF tumor types and used DRUID to enrich candidate drugs to revert the MPNST phenotype to pNF phenotype. 
+
+We did this using the steps outlined in the code using these available data sets:
+* CMAP
+* LINCS
+* Small molecules
+* Natural products
+* Comparative Toxicogenomic Database
 
 ```{r DRUID, echo=T, eval= TRUE, results='hide', message=FALSE, warning=FALSE, fig.height=15, fig.width=20, fig.cap="DRUID predictions for significant DEGs", layout="l-screen-inset shaded"}
 
@@ -286,8 +294,3 @@ all_genes_druid_ordered %>%
 Distill is a publication format for scientific and technical writing, native to the web. 
 
 Learn more about using Distill for R Markdown at <https://rstudio.github.io/distill>.
-
-
-
-
-
