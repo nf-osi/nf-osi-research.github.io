@@ -40,6 +40,8 @@ library(ggplot2)
 library(tidygraph)
 library(ggraph)
 
+source("R/circlepack.R")
+
 survey <- read.csv("materials/rfc/rfc_responses.csv")
 ```
 
@@ -71,7 +73,7 @@ Journal requirements and other repositories were considered to a much lesser ext
 
 ## Data types and formats summary
 
-As a representation of the most recent funder requirements and RFC results, table \@ref(tab:table-main) summarizes specifications for common data types that are of interest for the NF community.
+As a representation of the most recent funder requirements and RFC results, Table \@ref(tab:table-main) summarizes specifications for common data types that are of interest for the NF community.
 These standards should apply for most general cases.
 However, we do note that for some data types, the community provided additional considerations that serve to qualify or supplement what is in this table (see [Additional considerations](#qualitative)).
 This qualitative feedback point to certain data domains that may need deeper evaluation. 
@@ -162,35 +164,7 @@ We welcome the community providing more suggestions in this regard.
 
 ```{r fig-respondent-type, fig.cap="Demographic representation of RFC community respondents", echo=F}
 
-types <- survey %>%
-  pull(Type)
-
-n <- nrow(survey)
-
-types <- strsplit(types, ", ") %>%
-  unlist()
-types.prct <- (table(types) / n) * 100
-types.dt <- as.data.frame(types.prct)
-
-# Edges
-  nodes <- types.dt %>%
-    select(demographic = types, size = Freq) %>%
-    mutate(size = round(size, 0),
-           label = paste0(demographic, "\n", size, "%"))
-  
-  # Graph obj and graph
-  graph <- tidygraph::tbl_graph(nodes)
-  set.seed(1)
-  # Layering manually because https://github.com/thomasp85/ggraph/issues/230
-  ggraph(graph, 'circlepack', weight = size) +
-    ggraph::geom_node_circle(aes(fill = demographic)) +
-    ggplot2::scale_fill_brewer(type = "qual", palette = 2) +
-    ggraph::geom_node_label(aes(label = label)) +
-    ggplot2::coord_fixed() +
-    ggplot2::theme(legend.position = "FALSE") +
-    ggplot2::guides(fill = guide_legend(title = "demographic represented")) +
-    ggplot2::theme_void() #+ geom_node_label(aes(label=name), size=1)
-
+type_representation(Type, survey)
 
 ```
 
@@ -222,7 +196,6 @@ defaultPlot <- function(data, title) {
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
   
 }
-
 
 ```
 
