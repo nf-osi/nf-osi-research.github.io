@@ -154,7 +154,8 @@ grouped_bar(findability)
 
 The second part of the survey asked community users to reveal what might have negatively impacted their ability to **reuse** data.
 Within this area, there were two quite different potential issues: the technical issue of transfer capacity versus the more business-operational issue of dealing with an embargo period.
-The first has evidence of being the more problematic one, as shown in Figure \@ref(fig:fig-reuse), though it seems both affected a minority of users.
+## Major focus area of improvement identified:
+ 1. Data transfer rate and capacity from the Portal UI
 
 ```{r fig-reuse, fig.cap="Caption", layout="l-body-outset", fig.width=9, fig.height=7}
 
