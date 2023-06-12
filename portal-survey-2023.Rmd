@@ -204,7 +204,7 @@ grouped_bar(annotation)
 
 ### User sentiment
 
-That means that there are some users being left behind in all of these areas.
+Our results indicated that there are some users being left behind in all key areas.
 
 Users were also asked to provide a rating to summarize their overall experience in each area.
 When comparing the response distribution for these different areas all together, we see somewhat interestingly that the responses tend to be bi-modal (Figure \@ref(fig:fig-all-distributions)).
@@ -247,7 +247,6 @@ means <- tidy_survey_quant %>%
 
 ## Other discussion
 
-Outside of the main survey, users left comments and suggestions regarding data sharing and the portal.
 Outside of the main survey, additional comments left by respondents indicated that improving data accessibility to patients is also needed for the NF Data Portal.
 
 
