@@ -205,7 +205,6 @@ grouped_bar(annotation)
 
 ### User sentiment
 
-All issues except for metadata completeness had users who thought it made it "impossible" to achieve data discovery, sharing, or reuse.
 That means that there are some users being left behind in all of these areas.
 
 Users were also asked to provide a rating to summarize their overall experience in each area.
