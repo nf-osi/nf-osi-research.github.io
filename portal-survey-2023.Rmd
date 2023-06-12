@@ -86,8 +86,7 @@ Because respondents could indicate more than one demographic type, a statistic o
 Immediately evident is the that fact that the respondents contain a large representation of Principal Investigator (PIs), more than for any other type of user. 
 This is very encouraging and suggests that the NF Data Portal and the survey is reaching community constituents who have significant say in how research should be done, e.g. how to both obtain and share data for a study.
 
-On the other hand, there are several caveats in the respondent profile that should be noted.
-First is the relatively low percentage of bioinformaticians/computational biologists, which would be the demographic expected to be doing the practical, hands-on reuse of data.
+Conversely, a relatively low percentage of bioinformaticians/computational biologists were noted among respondents. 
 This proportion for bioinformaticians/computational biologists is also about the same as a [previous RFC survey](https://nf-osi.github.io/research/rfc-brief.html#respondent-profiles).
 A data portal should arguably see *over-representation* of bioinformaticians in its userbase, suggesting that the Portal either needs to have more bioinformatician users or increase survey engagement for this group.
 <!-- read: computational people may fill out surveys at a lower rate -->
