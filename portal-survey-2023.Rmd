@@ -236,7 +236,7 @@ ggplot(h, aes(x = rating)) +
 
 ```{r table-ratings, fig.label="", echo=F}
 
-means <- tidy_survey_quant %>%
+medians <- tidy_survey_quant %>%
   group_by(area) %>%
   summarize(median = round(median(rating), 2))
 
