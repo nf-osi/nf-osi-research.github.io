@@ -84,7 +84,7 @@ Though the number of respondents (*n=`r nrow(survey)`*) is a modest sample size,
 Figure \@ref(fig:fig-respondent-type) summarizes the relative abundance of six demographic types.
 Because respondents could indicate more than one demographic type, a statistic of 54% here should be interpreted to mean that 54% of the responses represented the "Principal Investigator" profile.
 That the survey has such large representation of Principal Investigator (PIs), more than for any other type of user, is encouraging.
-These are community constituents who have significant say in how research should be done, e.g. how to both obtain and share data for a study.
+This is very encouraging and suggests that the NF Data Portal and the survey is reaching community constituents who have significant say in how research should be done, e.g. how to both obtain and share data for a study.
 
 On the other hand, there are several caveats in the respondent profile that should be noted.
 First is the relatively low percentage of bioinformaticians/computational biologists, which would be the demographic expected to be doing the practical, hands-on reuse of data.
