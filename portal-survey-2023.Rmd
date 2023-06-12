@@ -80,7 +80,8 @@ survey$`What is your professional title?` <- gsub("Bench researcher/staff scient
 type_representation(`What is your professional title?`, survey)
 
 ```
-Though the number of respondents (*n=`r nrow(survey)`*) is a modest sample size, respondents do nevertheless represent different types of users.
+
+Our sample of respondents (*n=`r nrow(survey)`*) represented different types of users.
 Figure \@ref(fig:fig-respondent-type) summarizes the relative abundance of six demographic types.
 Because respondents could indicate more than one demographic type, a statistic of 54% here should be interpreted to mean that 54% of the responses represented the "Principal Investigator" profile.
 Immediately evident is the that fact that the respondents contain a large representation of Principal Investigator (PIs), more than for any other type of user. 
