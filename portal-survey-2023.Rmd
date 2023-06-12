@@ -93,7 +93,9 @@ A data portal should arguably see *over-representation* of bioinformaticians in 
 <!-- read: computational people may fill out surveys at a lower rate -->
 The second issue is that the survey question did not adequately admit additional demographics.
 One other type of user that should perhaps have been captured is the "rare disease patient or patient advocate".
-In further research and follow-up, we did see that a small minority of respondents fit into this demographic, though this is not apparent in the official responses because of the way the question was structured.
+However, we did see that a small minority of respondents belonging to this demographic on further investigation of respondent profiles. 
+It is highly encouraging to see that patients or patient advocates are also aware and are engaging with the NF Data Portal.
+We intend to capture the thoughts of this demographic more systematically in our next versions of this survey.
 
 ```{r reshape, echo=FALSE}
 
