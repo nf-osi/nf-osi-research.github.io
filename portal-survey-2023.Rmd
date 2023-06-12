@@ -238,7 +238,7 @@ means <- tidy_survey_quant %>%
   group_by(area) %>%
   summarize(median = round(median(rating), 2))
 
- gt(means)
+ gt(medians)
 
 ```
 
