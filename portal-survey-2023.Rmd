@@ -66,7 +66,7 @@ survey <- survey %>%
 ## Summary:
 ## Introduction
 
-Since 2015, the NF-OSI data platform has continued to grow and is now the entrypoint to over a hundred research studies for the Neurofibromatosis (NF) research community.
+Since 2015, the NF-OSI data platform has continued to grow and is now the entrypoint to over two research studies for the Neurofibromatosis (NF) research community.
 Eight years later, with the support of the Neurofibromatosis Therapeutic Acceleration Program (NTAP), we surveyed NF community members on the experience of **data findability, sharing, and reuse** through the NF Data Portal. The survey aimed to evaluate usability or barriers thereof in these three key areas to understand where the most impactful improvements could be made.
 
 ## Results and Analysis
