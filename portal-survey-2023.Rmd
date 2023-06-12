@@ -246,7 +246,7 @@ means <- tidy_survey_quant %>%
 ## Other discussion
 
 Outside of the main survey, users left comments and suggestions regarding data sharing and the portal.
-One theme hinted at by these qualitative results that were not covered in the above analysis is improving data accessibility to patients.
+Outside of the main survey, additional comments left by respondents indicated that improving data accessibility to patients is also needed for the NF Data Portal.
 
 
 ## Continuing research
