@@ -256,8 +256,8 @@ Outside of the main survey, additional comments left by respondents indicated th
 These preliminary results helped to establish a baseline for our community's experience and to recommend the right allocation of resources for improvement.
 Nevertheless, the modest sample sizes could have possibly skewed responses for certain areas and types of users.
 The [portal survey](https://docs.google.com/forms/d/e/1FAIpQLSdSgkq66IoLHbvXNmMEjEg4nMELwM-_CaJK3rFkU9pn84gYuA/viewform) remains open to collect more data.
-To make it more inclusive we will likely revise the respondent profiling question to include other demographics options.
-Aside from getting more trustworthy sample sizes and findings, the continuation of the survey will allow trend analysis to see how experiences change over time.
+To make it more inclusive we will revise the respondent profiling question to include other demographics options. 
+In addition to getting more representative sample sizes, the continuation of the survey will allow trend analysis to see how experiences change over time. 
 The results will be integrated into plans for continuous improvement in data discovery, sharing, and reuse as the NF data platform (hopefully) continues to expand and receive investment.
 
 The survey is also somewhat restricted in the insights that could be obtained because of greater focus on quantitative data and specific issues.
