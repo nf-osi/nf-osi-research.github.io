@@ -187,7 +187,10 @@ grouped_bar(upload)
 ```
 
 As with data upload, the majority and largest proportion of users thought "confusing or insufficient instructions" was a real issue (Figure \@ref(fig:fig-sharing-annotation)).
-Overall, data annotation also had somewhat more users with negative experiences than data upload.
+## Major focus area of improvement identified:
+ 1. Data annotation is a major hurdle for users
+ 2. Lack of instructions is a major barrier for smooth data annotation
+
 
 ```{r fig-sharing-annotation, fig.cap="Caption", layout="l-body-outset", fig.width=9, fig.height=7}
 annotation <- tidy_survey_ordinal %>%
