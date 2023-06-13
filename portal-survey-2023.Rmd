@@ -136,6 +136,10 @@ The first survey component asked about issues community users might encounter wh
 Of several issues that might hamper findability, Figure \@ref(fig:fig-findability) indicates that a confusing user interface had the most severe effect, though poor search functionality was also detrimental.
 Half or nearly half of users found it "hard" or "impossible" to find data because of these two issues.
 
+#### Major focus area of improvement identified: 
+
+**The Portal user interface and search needs to be improved**
+
 ```{r fig-findability, fig.cap="Caption", layout="l-body-outset", fig.width=9, fig.height=7}
 
 findability <- tidy_survey_ordinal %>%
@@ -155,9 +159,9 @@ The second part of the survey asked community users to reveal what might have ne
 Within this area, there were two quite different potential issues: the technical issue of transfer capacity versus the more business-operational issue of dealing with an embargo period. 
 The first has evidence of being the more problematic one, as shown in Figure \@ref(fig:fig-reuse), though it seems both affected a minority of users. 
 
-#### Major focus area of improvement identified:
+#### Major focus area of improvement identified: 
 
- 1. Data transfer rate and capacity from the Portal
+**Data transfer rate and capacity need to be higher**
 
 ```{r fig-reuse, fig.cap="Caption", layout="l-body-outset", fig.width=9, fig.height=7}
 
@@ -190,11 +194,9 @@ grouped_bar(upload)
 
 As with data upload, the majority and largest proportion of users thought "confusing or insufficient instructions" was a real issue (Figure \@ref(fig:fig-sharing-annotation)).
 
-#### Major focus area of improvement identified:
+#### Major focus area of improvement identified: 
 
- 1. Data annotation is a major hurdle for users
- 2. Poor instructions is a major barrier for data annotation
-
+**Instructions could be improved for easier data annotation and upload** 
 
 ```{r fig-sharing-annotation, fig.cap="Caption", layout="l-body-outset", fig.width=9, fig.height=7}
 annotation <- tidy_survey_ordinal %>%
