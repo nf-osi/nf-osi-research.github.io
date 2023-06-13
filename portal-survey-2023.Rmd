@@ -63,8 +63,10 @@ survey <- survey %>%
    group_by(id)  %>%
    top_n(n = 1, Timestamp)
 ```
+
 ## Summary
 
+The Neurofibromatosis (NF) community survey conducted to assess data findability, sharing, and reuse within the NF Data Portal/Platform has captured feedback from diverse users, with strong representation for Principal Investigators (PIs). Preliminary results indicate that a confusing user interface and poor search functionality were primary obstacles to data findability and affected the most users. Data sharing was particularly hampered by poor instructions and process flow, while data reuse's main issue was data download capacity. Future efforts include getting the perspectives of rare disease patients, as well as conducting more qualitative research. The ongoing survey aims to gather additional data to address limitations in the initial responses and track changes over time.
 
 ## Introduction
 
@@ -191,7 +193,7 @@ As with data upload, the majority and largest proportion of users thought "confu
 #### Major focus area of improvement identified:
 
  1. Data annotation is a major hurdle for users
- 2. Lack of instructions is a major barrier for data annotation
+ 2. Poor instructions is a major barrier for data annotation
 
 
 ```{r fig-sharing-annotation, fig.cap="Caption", layout="l-body-outset", fig.width=9, fig.height=7}
