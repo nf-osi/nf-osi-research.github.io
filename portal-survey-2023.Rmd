@@ -63,11 +63,13 @@ survey <- survey %>%
    group_by(id)  %>%
    top_n(n = 1, Timestamp)
 ```
-## Summary:
+## Summary
+
+
 ## Introduction
 
-Since 2015, the NF-OSI data platform has continued to grow and is now the entrypoint to over two research studies for the Neurofibromatosis (NF) research community.
-Eight years later, with the support of the Neurofibromatosis Therapeutic Acceleration Program (NTAP), we surveyed NF community members on the experience of **data findability, sharing, and reuse** through the NF Data Portal. The survey aimed to evaluate usability or barriers thereof in these three key areas to understand where the most impactful improvements could be made.
+Since 2015, the NF-OSI data platform has continued to grow and is now the entrypoint to over two hundred research studies for the Neurofibromatosis (NF) research community.
+Eight years later, with the support of the Neurofibromatosis Therapeutic Acceleration Program (NTAP), we surveyed NF community members on the experience of **data findability, sharing, and reuse** through the NF Data Portal. The survey aimed to evaluate usability and barriers in these three key areas to understand where the most impactful improvements could be made.
 
 ## Results and Analysis
 
@@ -81,21 +83,16 @@ type_representation(`What is your professional title?`, survey)
 
 ```
 
-Our sample of respondents (*n=`r nrow(survey)`*) represented different types of users.
-Figure \@ref(fig:fig-respondent-type) summarizes the relative abundance of six demographic types.
+Our sample of respondents (*n=`r nrow(survey)`*) represented six different types of users.
+Figure \@ref(fig:fig-respondent-type) summarizes the relative abundance of these demographic types.
 Because respondents could indicate more than one demographic type, a statistic of 54% here should be interpreted to mean that 54% of the responses represented the "Principal Investigator" profile.
-Immediately evident is the that fact that the respondents contain a large representation of Principal Investigator (PIs), more than for any other type of user. 
-This is very encouraging and suggests that the NF Data Portal and the survey is reaching community constituents who have significant say in how research should be done, e.g. how to both obtain and share data for a study.
+
+Immediately evident is that the survey shows large representation of Principal Investigator (PIs), more than for any other type of user. 
+This is encouraging and suggests that the Portal and survey is reaching community constituents who usually have significant say in how research should be done, e.g. how to both obtain and share data for a study.
 
 Conversely, a relatively low percentage of bioinformaticians/computational biologists were noted among respondents. 
 This proportion for bioinformaticians/computational biologists is also about the same as a [previous RFC survey](https://nf-osi.github.io/research/rfc-brief.html#respondent-profiles).
-A data portal should arguably see *over-representation* of bioinformaticians in its userbase, suggesting that the Portal either needs to have more bioinformatician users or increase survey engagement for this group.
-<!-- read: computational people may fill out surveys at a lower rate -->
-The second issue is that the survey question did not adequately admit additional demographics.
-One other type of user that should perhaps have been captured is the "rare disease patient or patient advocate".
-However, we did see that a small minority of respondents belonging to this demographic on further investigation of respondent profiles. 
-It is highly encouraging to see that patients or patient advocates are also aware and are engaging with the NF Data Portal.
-We intend to capture the thoughts of this demographic more systematically in our next versions of this survey.
+
 
 ```{r reshape, echo=FALSE}
 
@@ -153,9 +150,12 @@ grouped_bar(findability)
 ### Data reuse
 
 The second part of the survey asked community users to reveal what might have negatively impacted their ability to **reuse** data.
-Within this area, there were two quite different potential issues: the technical issue of transfer capacity versus the more business-operational issue of dealing with an embargo period.
-## Major focus area of improvement identified:
- 1. Data transfer rate and capacity from the Portal UI
+Within this area, there were two quite different potential issues: the technical issue of transfer capacity versus the more business-operational issue of dealing with an embargo period. 
+The first has evidence of being the more problematic one, as shown in Figure \@ref(fig:fig-reuse), though it seems both affected a minority of users. 
+
+#### Major focus area of improvement identified:
+
+ 1. Data transfer rate and capacity from the Portal
 
 ```{r fig-reuse, fig.cap="Caption", layout="l-body-outset", fig.width=9, fig.height=7}
 
@@ -173,7 +173,7 @@ grouped_bar(download)
 
 Data sharing through the NF platform includes not only uploading data but also providing metadata (annotations) for the data, thus this survey section asked about the experience of uploading and using our annotation tools.
 
-Figure \@ref(fig:fig-sharing-upload) shows that the issue which made upload "hard" or "impossible" for the largest share of users was "confusing or insufficient instructions".
+Figure \@ref(fig:fig-sharing-upload) shows that the issue which made upload "hard" or "impossible" for the largest share of users was "confusing or insufficient instructions". 
 Even though other issues affected a smaller share of users, they still represent major blockers for those users who said these made upload "impossible".
 
 ```{r fig-sharing-upload, fig.cap="Caption", layout="l-body-outset", fig.width=9, fig.height=7}
@@ -187,9 +187,11 @@ grouped_bar(upload)
 ```
 
 As with data upload, the majority and largest proportion of users thought "confusing or insufficient instructions" was a real issue (Figure \@ref(fig:fig-sharing-annotation)).
-## Major focus area of improvement identified:
+
+#### Major focus area of improvement identified:
+
  1. Data annotation is a major hurdle for users
- 2. Lack of instructions is a major barrier for smooth data annotation
+ 2. Lack of instructions is a major barrier for data annotation
 
 
 ```{r fig-sharing-annotation, fig.cap="Caption", layout="l-body-outset", fig.width=9, fig.height=7}
@@ -203,23 +205,14 @@ grouped_bar(annotation)
 ```
 
 
-### User sentiment
+### User sentiment summary
 
 Our results indicated that there are some users being left behind in all key areas.
 
 Users were also asked to provide a rating to summarize their overall experience in each area.
 When comparing the response distribution for these different areas all together, we see somewhat interestingly that the responses tend to be bi-modal (Figure \@ref(fig:fig-all-distributions)).
 Users who respond appear to be really pretty dissatisfied or pretty satisfied.
-While there is no area that is truly terrible, data sharing does have the lowest overall rating, with metadata sharing through the Data Curator App does having the lowest experience rating of 3 (Table \@ref(tab:table-ratings)).
-
-To improve the data sharing experience, the analysis has already suggested having clearer instructions and making sure they are seen by users.
-However, user comments also provide the insight that instructions become an issue because the current order/decoupling of events for data sharing is unintuitive -- data annotation should be done with data upload, not after.
-Thus it may not be really that more instructions are needed but that the process could be simpler and more intuitive.
-This would require both a technological and operational improvement to better combine data upload and annotation.
-
-Given that data sharing should be prioritized first, the next prioritization chooses between data findability versus data reuse.
-The survey results suggests that data findability affected more users.
-Both search functionality and the user interface are issues to target for data findability.
+While there is no area that is truly terrible, data sharing does have the lowest overall rating, with metadata sharing through the Data Curator App does having the lowest experience rating of 3 (Table \@ref(tab:table-ratings)). 
 
 
 ```{r fig-all-distributions, fig.label="", fig.width=6.5, fig.height=10, echo=F}
@@ -244,22 +237,51 @@ medians <- tidy_survey_quant %>%
 
 ```
 
+## Discussion on improvements 
 
+The survey results will be integrated into plans for continuous improvement in data discovery, sharing, and reuse as the NF data platform continues to expand and receive investment. 
 
-## Other discussion
+We identified that data sharing should be most prioritized. 
+The next prioritization chooses between data findability versus data reuse, and the survey results suggest that data findability affected more users. 
+Both search functionality and the user interface are issues to target for data findability. 
+Respondent comments also indicated that improving data accessibility to patients is also needed for the NF Data Portal.
 
-Outside of the main survey, additional comments left by respondents indicated that improving data accessibility to patients is also needed for the NF Data Portal.
-
+To improve the data sharing experience, the analysis has already suggested having clearer instructions and making sure they are seen by users. 
+However, user comments also gave the insight that instructions become an issue because the current order/decoupling of events for data sharing is unintuitive -- data annotation should be done with data upload, not after. 
+Thus it may not be really that more instructions are needed but that the process could be simpler and more intuitive. 
+This would require both a technological and operational improvement to better combine data upload and annotation. 
 
 ## Continuing research
 
-These preliminary results helped to establish a baseline for our community's experience and to recommend the right allocation of resources for improvement.
-Nevertheless, the modest sample sizes could have possibly skewed responses for certain areas and types of users.
-The [portal survey](https://docs.google.com/forms/d/e/1FAIpQLSdSgkq66IoLHbvXNmMEjEg4nMELwM-_CaJK3rFkU9pn84gYuA/viewform) remains open to collect more data.
-To make it more inclusive we will revise the respondent profiling question to include other demographics options. 
-In addition to getting more representative sample sizes, the continuation of the survey will allow trend analysis to see how experiences change over time. 
-The results will be integrated into plans for continuous improvement in data discovery, sharing, and reuse as the NF data platform (hopefully) continues to expand and receive investment.
+#### Addressing sample size limitations
 
-The survey is also somewhat restricted in the insights that could be obtained because of greater focus on quantitative data and specific issues.
-More open-ended and qualitative research could extend the research to uncovered issues as well as explore ideas on how to build a better portal.
+These preliminary results helped to establish a baseline for our community's experience and to recommend the right allocation of resources for improvement. 
+Nevertheless, the modest sample sizes could have possibly skewed responses for certain areas and types of users.
+
+A data portal should arguably see *over-representation* of bioinformaticians in its userbase, suggesting that the Portal either needs to have more bioinformatician users or increase survey engagement for this group. 
+<!-- read: computational people may fill out surveys at a lower rate --> 
+The other issue is that the survey question did not adequately admit additional demographics.
+One other type of user that should perhaps have been captured is the "rare disease patient or patient advocate".
+We did see that a small minority of respondents belonging to this demographic on further investigation of respondent profiles. 
+
+It is highly encouraging to see that patients or patient advocates are also aware of and are engaging with the NF Data Portal. 
+We intend to capture the thoughts of this demographic more systematically in our next versions of this survey. 
+To make it more inclusive we will revise the respondent profiling question to include other demographics options. 
+
+#### Deeper insights
+
+The survey is also somewhat restricted in the insights that could be obtained because of greater focus on quantitative data and specific issues. 
+While the survey can adequately say *what* needs to be most improved, it does not necessarily answer *how* something should be improved. 
+More open-ended and qualitative research could extend the research to uncovered issues as well as explore ideas on how to build a better portal. 
 A number of respondents indicated that they were willing to participate in interviews as part of this more qualitative exploration, which might be done through partnership with the Sage design team.
+
+#### Survey link
+
+In addition to addressing limitations, the continuation of the survey will allow trend analysis to see how experiences change over time. 
+The [portal survey](https://docs.google.com/forms/d/e/1FAIpQLSdSgkq66IoLHbvXNmMEjEg4nMELwM-_CaJK3rFkU9pn84gYuA/viewform) remains open to collect more data. 
+
+
+
+
+
+
