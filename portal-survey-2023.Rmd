@@ -251,9 +251,15 @@ Both search functionality and the user interface are issues to target for data f
 Respondent comments also indicated that improving data accessibility to patients is also needed for the NF Data Portal.
 
 To improve the data sharing experience, the analysis has already suggested having clearer instructions and making sure they are seen by users. 
-However, user comments also gave the insight that instructions become an issue because the current order/decoupling of events for data sharing is unintuitive -- data annotation should be done with data upload, not after. 
-Thus it may not be really that more instructions are needed but that the process could be simpler and more intuitive. 
-This would require both a technological and operational improvement to better combine data upload and annotation. 
+However, our qualitative user feedback also gave the insight that instructions are more of an issue because the current order/decoupling of events for data sharing is unintuitive.
+
+Anonymous user comment:
+
+> "I propose that the annotation happens during the initial data upload process in SAGE as part of the very first step, rather than having to upload all the files on SAGE in the beautiful hierarchical folder system only to reannotate them later with more (and useful) information."
+
+The valuable comment above suggests that hiding behind our users' confusion is an un-optimal process. 
+In a simpler and more intuitive process, data annotation is done concurrently with data upload, without the time lag and switching of applications that requires more steps and also more documentation. 
+Translating this improvement would require technological and operational redesign work to better combine data upload and annotation. 
 
 ## Continuing research
 
