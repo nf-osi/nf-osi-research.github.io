@@ -1,0 +1,296 @@
+---
+title: "NF-OSI Data Access Survey -- 2023 Preliminary Results"
+description: |
+  Preliminary survey findings from the NF community on the experience of data discovery, sharing, and reuse through the NF Data Portal.
+author:
+  - name: Anh Nguyet Vu
+    url: https://github.com/anngvu
+    affiliation: Sage Bionetworks
+    affiliation_url: https://sagebionetworks.org/
+    orcid_id: 0000-0003-1488-6730
+  - name: Jineta Banerjee
+    url: https://github.com/jaybee84
+    affiliation: Sage Bionetworks
+    affiliation_url: https://sagebionetworks.org/
+    orcid_id: 0000-0002-1775-3645
+  - name: Christina Conrad
+    url: https://github.com/cconrad8
+    affiliation: Sage Bionetworks
+    affiliation_url: https://sagebionetworks.org/
+    orcid_id: 0000-0001-8688-2523
+  - name: Robert Allaway
+    url: https://github.com/allaway
+    affiliation: Sage Bionetworks
+    affiliation_url: https://sagebionetworks.org/
+    orcid_id: 0000-0003-3573-3565
+date: "`r Sys.Date()`"
+output: distill::distill_article
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(gt)
+library(googlesheets4)
+library(tidygraph)
+library(ggraph)
+
+source("R/circlepack.R")
+```
+
+
+```{r, include=FALSE}
+sheet_id <- "1mZ6_XzC1d82cCl8uBqBjSDvIMo7-QN4Q2_FMIifbmkA"
+raw <- googlesheets4::read_sheet(ss = sheet_id)
+
+```
+
+```{r, echo=F}
+# users
+emails <- raw %>%
+  pull(`Email Address`) %>%
+  unique()
+
+deid <- setNames(1:length(emails), emails)
+survey <- raw %>%
+  mutate(id = deid[`Email Address`]) %>%
+  select(-c(`Email Address`))
+
+# use only most recent response where some users submitted multiple responses
+survey <- survey %>%
+   group_by(id)  %>%
+   top_n(n = 1, Timestamp)
+```
+
+## Summary
+
+The Neurofibromatosis (NF) community survey conducted to assess data findability, sharing, and reuse within the NF Data Portal/Platform has captured feedback from diverse users, with strong representation for Principal Investigators (PIs). Preliminary results suggest a positive finding that the majority of respondents did not have issues with data discovery, but there could still be improvements made in the user interface and search functionality to fully support all users. Data sharing was particularly hampered by poor instructions and process flow, while data reuse's main issue was data download capacity. Future efforts include addressing the most impactful issues, facilitating representation for rare disease patients, and conducting more qualitative research. The ongoing survey aims to gather additional data to address limitations in the initial responses and track changes over time.
+
+## Introduction
+
+Since 2015, the NF-OSI data platform has continued to grow and is now the entrypoint to over two hundred research studies for the Neurofibromatosis (NF) research community.
+Eight years later, with the support of the Neurofibromatosis Therapeutic Acceleration Program (NTAP), we surveyed NF community members on the experience of **data findability, sharing, and reuse** through the NF Data Portal. The survey aimed to evaluate usability and barriers in these three key areas to understand where the most impactful improvements could be made.
+
+## Results and Analysis
+
+### Respondent profiles
+```{r fig-respondent-type, fig.cap="Demographic representation of survey respondents", layout="l-body-outset", fig.width=9, fig.height=7, echo=F}
+
+# Format labels
+survey$`What is your professional title?` <- gsub("Bioinformatician/computational biologist", "Bioinformatician\n/ comp. biologist", survey$`What is your professional title?`)
+survey$`What is your professional title?` <- gsub("Bench researcher/staff scientist", "Bench researcher\n/ staff scientist", survey$`What is your professional title?`)
+type_representation(`What is your professional title?`, survey)
+
+```
+
+Our sample of respondents (*n=`r nrow(survey)`*) represented six different types of users.
+Figure \@ref(fig:fig-respondent-type) summarizes the relative abundance of these demographic types.
+Because respondents could indicate more than one demographic type, a statistic of 54% here should be interpreted to mean that 54% of the responses represented the "Principal Investigator" profile.
+
+Immediately evident is that the survey shows large representation of Principal Investigator (PIs), more than for any other type of user. 
+This is encouraging and suggests that the Portal and survey is reaching community constituents who usually have significant say in how research should be done, e.g. how to both obtain and share data for a study.
+
+Conversely, a relatively low percentage of bioinformaticians/computational biologists were noted among respondents. 
+This proportion for bioinformaticians/computational biologists is also about the same as a [previous RFC survey](https://nf-osi.github.io/research/rfc-brief.html#respondent-profiles).
+
+
+```{r reshape, echo=FALSE}
+
+# long format (tidy) data needed for subsequent figures
+
+tidy_survey_quant <- survey %>%
+  select(starts_with("How would you generally rate your experience")) %>%
+  tidyr::pivot_longer(cols = !id, names_to = "area", values_to = "rating")
+
+area_regex <- "(ability to \\w+)"
+issue_regex <-"(?<=\\[).+?(?=\\])"
+
+tidy_survey_ordinal <- survey %>%
+  select(contains("sort")) %>%
+  tidyr::pivot_longer(cols = !id, names_to = "area_issue", values_to = "response") %>%
+  mutate(area = regmatches(area_issue, regexpr(area_regex, area_issue, perl = T)),
+         issue = regmatches(area_issue, regexpr(issue_regex, area_issue, perl = T)))
+
+
+grouped_bar <- function(data) {
+
+  ggplot(data, aes(x = issue, y = n, fill = response)) +
+       geom_bar(stat="identity") +
+  scale_fill_manual(values = c("#E64B35FF",  "orange", "#4DBBD5FF", "gray")) +
+  theme_minimal() +
+  xlab("") +
+  ylab("Number of responses") +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1),
+        plot.margin = margin(3, 1, 0.4, 1, "cm")) # need generous left margin for long text
+}
+
+```
+
+### Data findability
+
+Data discovery is an important antecedent to data reuse.
+The first survey component asked about issues community users might encounter when trying to **find** data through the NF Data Portal.
+
+Of several issues that might hamper findability, Figure \@ref(fig:fig-findability) indicates that a confusing user interface had the most severe effect, though poor search functionality was also detrimental.
+Half or nearly half of users found it "hard" or "impossible" to find data because of these two issues.
+
+#### Major focus area of improvement identified: 
+
+**The Portal user interface and search needs improvement for better data findability**
+```{r fig-findability, fig.cap="Responses for issues within data findability", layout="l-body-outset", fig.width=9, fig.height=7}
+
+findability <- tidy_survey_ordinal %>%
+  filter(area == "ability to find") %>%
+  mutate(response = factor(response, levels = c("Made it impossible to find any data", "Made it hard to find data", "This was not an issue", "Not applicable"))) %>%
+  group_by(issue) %>%
+  count(response)
+
+grouped_bar(findability)
+
+```
+
+
+### Data reuse
+
+The second part of the survey asked community users to reveal what might have negatively impacted their ability to **reuse** data.
+Within this area, there were two quite different potential issues: the technical issue of transfer capacity versus the more business-operational issue of dealing with an embargo period. 
+The first has evidence of being the more problematic one, as shown in Figure \@ref(fig:fig-reuse), though it seems both affected a minority of users. 
+
+#### Major focus area of improvement identified: 
+
+**Data transfer rate and capacity needs improvement to facilitate data reuse**
+```{r fig-reuse, fig.cap="Responses for issues within data reuse", layout="l-body-outset", fig.width=9, fig.height=7}
+
+download <- tidy_survey_ordinal %>%
+  filter(area == "ability to download") %>%
+  mutate(response = factor(response, levels = c("Made it impossible to download any data", "Made it hard to download data", "This was not an issue", "Not applicable"))) %>%
+  group_by(issue) %>%
+  count(response)
+
+grouped_bar(download)
+
+```
+
+### Data sharing
+
+Data sharing through the NF platform includes not only uploading data but also providing metadata (annotations) for the data, thus this survey section asked about the experience of uploading and using our annotation tool, the NF [Data Curator App](https://sagebio.shinyapps.io/NF_data_curator/).
+
+Figure \@ref(fig:fig-sharing-upload) shows that the issue which made upload "hard" or "impossible" for the largest share of users was "confusing or insufficient instructions". 
+Even though other issues affected a smaller share of users, they still represent major blockers for those users who said these made upload "impossible".
+
+#### Major focus area of improvement identified: 
+
+**Instructions need improvement for easier data sharing in both areas of data upload and annotation** 
+```{r fig-sharing-upload, fig.cap="Responses for issues within data sharing (upload)", layout="l-body-outset", fig.width=9, fig.height=7}
+upload <- tidy_survey_ordinal %>%
+  filter(area %in% c("ability to upload")) %>%
+   mutate(response = factor(response, levels = c("Made it impossible to upload", "Made it hard to upload data", "This was not an issue", "Not applicable"))) %>%
+   group_by(issue) %>%
+  count(response)
+
+grouped_bar(upload)
+```
+
+As with data upload, the majority and largest proportion of users thought "confusing or insufficient instructions" was a real issue (Figure \@ref(fig:fig-sharing-annotation)). 
+Annotation appears to be a worse experience than upload overall given more total dissatisfied users across issues.  
+
+```{r fig-sharing-annotation, fig.cap="Responses for issues within data sharing (annotation)", layout="l-body-outset", fig.width=9, fig.height=7}
+annotation <- tidy_survey_ordinal %>%
+  filter(area == "ability to annotate") %>%
+  mutate(response = factor(response, levels = c("Made it impossible to annotate", "Made it hard to annotate", "This was not an issue", "Not applicable"))) %>%
+   group_by(issue) %>%
+  count(response)
+
+grouped_bar(annotation)
+```
+
+
+### User sentiment summary
+
+Our results indicated that there are some users being left behind in all key areas.
+
+Users were also asked to provide a rating to summarize their overall experience in each area.
+When comparing the response distribution for these different areas all together, we see somewhat interestingly that the responses tend to be bi-modal (Figure \@ref(fig:fig-all-distributions)).
+Users who respond appear to be really pretty dissatisfied or pretty satisfied.
+
+
+```{r fig-all-distributions, fig.cap="User sentiment rating distribution across each experience area", fig.label="", fig.width=6.5, fig.height=10}
+
+h <- tidy_survey_quant %>%
+  mutate(area = gsub("\\(.*", "", area))
+
+ggplot(h, aes(x = rating)) +
+  geom_histogram(binwidth=1) +
+  facet_wrap(area ~ ., ncol = 1) +
+  theme_light()
+```
+
+While there is no area that is truly terrible, metadata sharing through the [Data Curator App](https://sagebio.shinyapps.io/NF_data_curator/) does have the lowest experience rating of 3 (Table \@ref(tab:table-ratings)). 
+
+```{r table-ratings}
+
+medians <- tidy_survey_quant %>%
+  group_by(area) %>%
+  summarize(median = round(median(rating), 2))
+
+gt(medians, 
+   caption = "Median summary ratings across experience areas")
+
+```
+
+## Discussion on improvements 
+
+The survey results will be integrated into plans for continuous improvement in data discovery, sharing, and reuse as the NF data platform continues to expand and receive investment. 
+
+We concluded that data sharing should be most prioritized. 
+To improve the data sharing experience, the analysis has already suggested having clearer instructions and making sure they are seen by users. 
+However, our qualitative user feedback also gave the insight that instructions are more of an issue because the current order/decoupling of events for data sharing is unintuitive.
+
+Anonymous user comment:
+
+> "I propose that the annotation happens during the initial data upload process in SAGE as part of the very first step, rather than having to upload all the files on SAGE in the beautiful hierarchical folder system only to reannotate them later with more (and useful) information."
+
+This valuable comment hints that hiding behind our users' confusion is an un-optimal process. 
+In a simpler and more intuitive process, data annotation is done concurrently with data upload, without the time lag and switching of applications that requires more steps and also more documentation. 
+Translating this improvement would require technological and operational redesign work to better combine data upload and annotation. 
+
+The next prioritization chooses between data findability versus data reuse, and the survey results suggest that data findability affected more users. 
+Both search functionality and the user interface are issues to target for data findability; here it would be helpful to understand exactly what kind of searches and interactions matter most to users. 
+Finally, respondent comments suggest improving data accessibility to patients is needed for the NF Data Portal. 
+
+## Continuing research
+
+#### Addressing sample size limitations
+
+These preliminary results helped to establish a baseline for our community's experience and to recommend the right allocation of resources for improvement. 
+Nevertheless, the modest sample sizes could have very possibly skewed responses for certain areas and types of users.
+
+A data portal should arguably see *over-representation* of bioinformaticians in its userbase, suggesting that the Portal either needs to have more bioinformatician users or increase survey engagement for this group. 
+<!-- read: computational people may fill out surveys at a lower rate --> 
+The other issue is that the survey question did not adequately admit additional demographics.
+One other type of user that should perhaps have been captured is the "rare disease patient or patient advocate".
+We did see that a small minority of respondents belonging to this demographic on further investigation of respondent profiles. 
+
+It is highly encouraging to see that patients or patient advocates are also aware of and are engaging with the NF Data Portal. 
+We intend to capture the thoughts of this demographic more systematically in our next versions of this survey. 
+To make it more inclusive we will revise the respondent profiling question to include other demographics options. 
+
+#### Deeper insights
+
+The survey is also somewhat restricted in the insights that could be obtained because of greater focus on quantitative data and specific issues. 
+While the survey can adequately say *what* needs to be most improved, it does not necessarily answer *how* something should be improved. 
+More open-ended and qualitative research could extend the research to uncovered issues as well as explore ideas on how to build a better portal. 
+A number of respondents indicated that they were willing to participate in interviews as part of this more qualitative exploration, which might be done through partnership with the Sage design team.
+
+#### Survey link
+
+In addition to addressing limitations, the continuation of the survey will allow trend analysis to see how experiences change over time. 
+The [portal survey](https://docs.google.com/forms/d/e/1FAIpQLSdSgkq66IoLHbvXNmMEjEg4nMELwM-_CaJK3rFkU9pn84gYuA/viewform) remains open to collect more data. 
+
+
+
+
+
+
