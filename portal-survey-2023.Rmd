@@ -138,9 +138,8 @@ Half or nearly half of users found it "hard" or "impossible" to find data becaus
 
 #### Major focus area of improvement identified: 
 
-**The Portal user interface and search needs to be improved**
-
-```{r fig-findability, fig.cap="Caption", layout="l-body-outset", fig.width=9, fig.height=7}
+**The Portal user interface and search needs improvement for better data findability**
+```{r fig-findability, fig.cap="Responses for issues within data findability", layout="l-body-outset", fig.width=9, fig.height=7}
 
 findability <- tidy_survey_ordinal %>%
   filter(area == "ability to find") %>%
@@ -161,9 +160,8 @@ The first has evidence of being the more problematic one, as shown in Figure \@r
 
 #### Major focus area of improvement identified: 
 
-**Data transfer rate and capacity need to be higher**
-
-```{r fig-reuse, fig.cap="Caption", layout="l-body-outset", fig.width=9, fig.height=7}
+**Data transfer rate and capacity needs improvement to facilitate data reuse**
+```{r fig-reuse, fig.cap="Responses for issues within data reuse", layout="l-body-outset", fig.width=9, fig.height=7}
 
 download <- tidy_survey_ordinal %>%
   filter(area == "ability to download") %>%
@@ -177,12 +175,15 @@ grouped_bar(download)
 
 ### Data sharing
 
-Data sharing through the NF platform includes not only uploading data but also providing metadata (annotations) for the data, thus this survey section asked about the experience of uploading and using our annotation tools.
+Data sharing through the NF platform includes not only uploading data but also providing metadata (annotations) for the data, thus this survey section asked about the experience of uploading and using our annotation tool, the NF [Data Curator App](https://sagebio.shinyapps.io/NF_data_curator/).
 
 Figure \@ref(fig:fig-sharing-upload) shows that the issue which made upload "hard" or "impossible" for the largest share of users was "confusing or insufficient instructions". 
 Even though other issues affected a smaller share of users, they still represent major blockers for those users who said these made upload "impossible".
 
-```{r fig-sharing-upload, fig.cap="Caption", layout="l-body-outset", fig.width=9, fig.height=7}
+#### Major focus area of improvement identified: 
+
+**Instructions need improvement for easier data sharing in both areas of data upload and annotation** 
+```{r fig-sharing-upload, fig.cap="Responses for issues within data sharing (upload)", layout="l-body-outset", fig.width=9, fig.height=7}
 upload <- tidy_survey_ordinal %>%
   filter(area %in% c("ability to upload")) %>%
    mutate(response = factor(response, levels = c("Made it impossible to upload", "Made it hard to upload data", "This was not an issue", "Not applicable"))) %>%
@@ -192,13 +193,10 @@ upload <- tidy_survey_ordinal %>%
 grouped_bar(upload)
 ```
 
-As with data upload, the majority and largest proportion of users thought "confusing or insufficient instructions" was a real issue (Figure \@ref(fig:fig-sharing-annotation)).
+As with data upload, the majority and largest proportion of users thought "confusing or insufficient instructions" was a real issue (Figure \@ref(fig:fig-sharing-annotation)). 
+Annotation appears to be a worse experience than upload overall given more total dissatisfied users across issues.  
 
-#### Major focus area of improvement identified: 
-
-**Instructions could be improved for easier data annotation and upload** 
-
-```{r fig-sharing-annotation, fig.cap="Caption", layout="l-body-outset", fig.width=9, fig.height=7}
+```{r fig-sharing-annotation, fig.cap="Responses for issues within data sharing (annotation)", layout="l-body-outset", fig.width=9, fig.height=7}
 annotation <- tidy_survey_ordinal %>%
   filter(area == "ability to annotate") %>%
   mutate(response = factor(response, levels = c("Made it impossible to annotate", "Made it hard to annotate", "This was not an issue", "Not applicable"))) %>%
@@ -216,10 +214,9 @@ Our results indicated that there are some users being left behind in all key are
 Users were also asked to provide a rating to summarize their overall experience in each area.
 When comparing the response distribution for these different areas all together, we see somewhat interestingly that the responses tend to be bi-modal (Figure \@ref(fig:fig-all-distributions)).
 Users who respond appear to be really pretty dissatisfied or pretty satisfied.
-While there is no area that is truly terrible, data sharing does have the lowest overall rating, with metadata sharing through the Data Curator App does having the lowest experience rating of 3 (Table \@ref(tab:table-ratings)). 
 
 
-```{r fig-all-distributions, fig.label="", fig.width=6.5, fig.height=10, echo=F}
+```{r fig-all-distributions, fig.cap="User sentiment rating distribution across each experience area", fig.label="", fig.width=6.5, fig.height=10}
 
 h <- tidy_survey_quant %>%
   mutate(area = gsub("\\(.*", "", area))
@@ -230,14 +227,16 @@ ggplot(h, aes(x = rating)) +
   theme_light()
 ```
 
+While there is no area that is truly terrible, metadata sharing through the [Data Curator App](https://sagebio.shinyapps.io/NF_data_curator/) does have the lowest experience rating of 3 (Table \@ref(tab:table-ratings)). 
 
-```{r table-ratings, fig.label="", echo=F}
+```{r table-ratings}
 
 medians <- tidy_survey_quant %>%
   group_by(area) %>%
   summarize(median = round(median(rating), 2))
 
- gt(medians)
+gt(medians, 
+   caption = "Median summary ratings across experience areas")
 
 ```
 
@@ -245,11 +244,7 @@ medians <- tidy_survey_quant %>%
 
 The survey results will be integrated into plans for continuous improvement in data discovery, sharing, and reuse as the NF data platform continues to expand and receive investment. 
 
-We identified that data sharing should be most prioritized. 
-The next prioritization chooses between data findability versus data reuse, and the survey results suggest that data findability affected more users. 
-Both search functionality and the user interface are issues to target for data findability. 
-Respondent comments also indicated that improving data accessibility to patients is also needed for the NF Data Portal.
-
+We concluded that data sharing should be most prioritized. 
 To improve the data sharing experience, the analysis has already suggested having clearer instructions and making sure they are seen by users. 
 However, our qualitative user feedback also gave the insight that instructions are more of an issue because the current order/decoupling of events for data sharing is unintuitive.
 
@@ -257,16 +252,20 @@ Anonymous user comment:
 
 > "I propose that the annotation happens during the initial data upload process in SAGE as part of the very first step, rather than having to upload all the files on SAGE in the beautiful hierarchical folder system only to reannotate them later with more (and useful) information."
 
-The valuable comment above suggests that hiding behind our users' confusion is an un-optimal process. 
+This valuable comment hints that hiding behind our users' confusion is an un-optimal process. 
 In a simpler and more intuitive process, data annotation is done concurrently with data upload, without the time lag and switching of applications that requires more steps and also more documentation. 
 Translating this improvement would require technological and operational redesign work to better combine data upload and annotation. 
+
+The next prioritization chooses between data findability versus data reuse, and the survey results suggest that data findability affected more users. 
+Both search functionality and the user interface are issues to target for data findability; here it would be helpful to understand exactly what kind of searches and interactions matter most to users. 
+Finally, respondent comments suggest improving data accessibility to patients is needed for the NF Data Portal. 
 
 ## Continuing research
 
 #### Addressing sample size limitations
 
 These preliminary results helped to establish a baseline for our community's experience and to recommend the right allocation of resources for improvement. 
-Nevertheless, the modest sample sizes could have possibly skewed responses for certain areas and types of users.
+Nevertheless, the modest sample sizes could have very possibly skewed responses for certain areas and types of users.
 
 A data portal should arguably see *over-representation* of bioinformaticians in its userbase, suggesting that the Portal either needs to have more bioinformatician users or increase survey engagement for this group. 
 <!-- read: computational people may fill out surveys at a lower rate --> 
